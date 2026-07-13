@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    /* JavaScript Version */
+    "target": "ES2022",
+
+    /* Module System */
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+
+    /* Folder Structure */
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    /* Strict Type Checking */
+    "strict": true,
+
+    /* Module Compatibility */
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    /* Decorators (Required for TypeORM) */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    /* Build Options */
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Source Maps */
+    "sourceMap": true,
+
+    /* JSON Imports */
+    "resolveJsonModule": true,
+
+    /* Remove Comments */
+    "removeComments": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
