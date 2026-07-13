@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import { errorMiddleware } from "./middleware/error.middleware.js";
 
 // app initialize
 const app = express();
@@ -9,6 +10,9 @@ const app = express();
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
+
+// error middleware
+app.use(errorMiddleware);
 
 // default route
 app.get("/", (_, res) => {
