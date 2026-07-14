@@ -1,3 +1,5 @@
+import { SignOptions } from "jsonwebtoken";
+
 // env configuration
 export const env = {
     PORT: Number(process.env.PORT),
@@ -16,4 +18,10 @@ export const env = {
     MAIL_PORT: Number(process.env.MAIL_PORT),
     MAIL_USER: process.env.MAIL_USER as string,
     MAIL_PASSWORD: process.env.MAIL_PASSWORD as string,
+
+    // tokens
+    ACCESS_SECRET_KEY: process.env.ACCESS_SECRET_KEY as string,
+    ACCESS_TOKEN_EXPIRY: process.env.ACCESS_TOKEN_EXPIRY as SignOptions["expiresIn"],
+    REFRESH_SECRET_KEY: process.env.REFRESH_SECRET_KEY as string,
+    REFRESH_TOKEN_EXPIRY: process.env.REFRESH_TOKEN_EXPIRY as SignOptions["expiresIn"]
 }

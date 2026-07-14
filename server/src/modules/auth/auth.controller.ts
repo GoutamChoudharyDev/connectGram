@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
 import { asyncHandler } from "../../utils/async-handler.utils.js";
 import { userRepository } from "../../repositories/user.repository.js";
-import { hashPassword } from "../../utils/bcrypt.js";
+import { comparePassword, hashPassword } from "../../utils/bcrypt.js";
 import { sendResponse } from "../../utils/response.utils.js";
 import { generateOTP } from "../../utils/generate-otp.js";
 import { emailVerificationRepository } from "../../repositories/emailVerification.repository.js";
 import { sendEmail } from "../../utils/send-email.utils.js";
 import { verificationEmailTemplate } from "../../templates/verification-email.js";
+import { generateAccessToken, generateRefreshToken } from "../../utils/tokens.utils.js";
+import { cookiesOptions } from "../../utils/cookies-options.utils.js";
 
 //Note : joi validation for email(pending)
 
@@ -112,6 +114,7 @@ export const registerUser = asyncHandler(async (req: Request, res: Response) => 
         userWithoutPassword,
     );
 });
+
 
 // verify email controller
 export const verifyEmail = asyncHandler(async (req: Request, res: Response) => {
@@ -272,5 +275,84 @@ export const reSendOTP = asyncHandler(async (req: Request, res: Response) => {
         201,
         true,
         "OTP is sended successfully"
+    )
+})
+
+// login controller
+export const loginUser = asyncHandler(async (req: Request, res: Response) => {
+    // get email and password from (req.body)
+    const { email, password } = req.body;
+
+    // validation
+    if (!email || !password) {
+        return sendResponse(
+            res,
+            400,
+            false,
+            "Email and password is required"
+        )
+    }
+
+    // find user
+    const user = await userRepository.findOne({
+        where: { email }
+    })
+
+    if (!user) {
+        return sendResponse(
+            res,
+            401,
+            false,
+            "Invalid credentials"
+        )
+    }
+
+    // Email verified
+    if (!user.isVerified) {
+        return sendResponse(
+            res,
+            401,
+            false,
+            "User is not verified"
+        )
+    }
+
+    // compare password
+    const isPasswordValid = await comparePassword(password, user.password);
+
+    if (!isPasswordValid) {
+        return sendResponse(
+            res,
+            401,
+            false,
+            "Invalid creadentials"
+        )
+    }
+
+    // generate tokens
+    const accessToken = generateAccessToken(user.id);
+    const refreshToken = generateRefreshToken(user.id);
+
+    // set in cookie
+    res.cookie("accessToken", accessToken, {
+        ...cookiesOptions,
+        maxAge: 10 * 60 * 1000 // 10 min
+    })
+
+    res.cookie("refreshToken", refreshToken, {
+        ...cookiesOptions,
+        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    })
+
+    // remove password from user
+    const { password: _, ...userWithoutPassword } = user;
+
+    // return response
+    return sendResponse(
+        res,
+        200,
+        true,
+        "User logged in successfully",
+        userWithoutPassword
     )
 })
