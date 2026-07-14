@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { errorMiddleware } from "./middleware/error.middleware.js";
+import routes from "./routes/index.route.js";
 
 // app initialize
 const app = express();
@@ -19,7 +20,8 @@ app.get("/", (_, res) => {
     res.send("Backend is running!")
 })
 
-// route
+// API Routes
+app.use("/api", routes);
 
 // export app
 export default app;

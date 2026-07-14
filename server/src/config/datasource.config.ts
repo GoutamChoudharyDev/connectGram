@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { env } from "./env.config.js";
+import { User } from "../entities/user.entity.js";
 
 // Configure TypeORM and connect to Postgres
 const AppDataSource = new DataSource({
@@ -19,7 +20,7 @@ const AppDataSource = new DataSource({
     logging: true,
 
     // Register entities
-    entities: [],
+    entities: [User],
 
     // Migrations
     migrations: [],

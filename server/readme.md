@@ -3,6 +3,7 @@
 <!-- install dependencies -->
 <!-- follow feature based folder structure(Moduler approach) -->
 <!-- connect database -->
+<!-- create error.middleware, resonse utility and async-handler -->
 
 <!-- Project Roadmap -->
 Phase 1 ✅ Project Setup

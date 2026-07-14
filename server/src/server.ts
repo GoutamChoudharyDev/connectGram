@@ -1,5 +1,5 @@
-import "dotenv/config";
 import "reflect-metadata";
+import "dotenv/config";
 
 import app from "./app.js";
 import { env } from "./config/env.config.js";
