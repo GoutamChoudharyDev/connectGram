@@ -8,6 +8,8 @@ import { emailVerificationRepository } from "../../repositories/emailVerificatio
 import { sendEmail } from "../../utils/send-email.utils.js";
 import { verificationEmailTemplate } from "../../templates/verification-email.js";
 
+//Note : joi validation for email(pending)
+
 // register user controller
 export const registerUser = asyncHandler(async (req: Request, res: Response) => {
     // get data from frontend(req.body)
@@ -111,5 +113,164 @@ export const registerUser = asyncHandler(async (req: Request, res: Response) => 
     );
 });
 
+// verify email controller
+export const verifyEmail = asyncHandler(async (req: Request, res: Response) => {
+    // get email and otp from req.body
+    const { email, otp } = req.body;
 
-// joi validation
+    // validation
+    if (!email || !otp) {
+        return sendResponse(
+            res,
+            400,
+            false,
+            "Email and OTP are required"
+        )
+    }
+
+    // find user
+    const user = await userRepository.findOne({
+        where: { email }
+    })
+
+    if (!user) {
+        return sendResponse(
+            res,
+            404,
+            false,
+            "User not found"
+        )
+    }
+
+    // check if already verified
+    if (user.isVerified) {
+        return sendResponse(
+            res,
+            400,
+            false,
+            "Email is already verified"
+        )
+    }
+
+    // find email verification record
+    const emailVerificationRecord = await emailVerificationRepository.findOne({
+        where: {
+            user: {
+                id: user.id
+            }
+        },
+    })
+
+    if (!emailVerificationRecord) {
+        return sendResponse(
+            res,
+            404,
+            false,
+            "OTP not found"
+        )
+    }
+
+    // check otp
+    if (emailVerificationRecord.otp !== otp) {
+        return sendResponse(
+            res,
+            401,
+            false,
+            "Invalid OTP"
+        )
+    }
+
+    // check otp expiry
+    if (emailVerificationRecord.expiresAt < new Date()) {
+        return sendResponse(
+            res,
+            400,
+            false,
+            "OTP has expired"
+        )
+    }
+
+    // verify user
+    user.isVerified = true;
+    await userRepository.save(user);
+
+    // delete otp
+    await emailVerificationRepository.remove(emailVerificationRecord);
+
+    // return res
+    return sendResponse(
+        res,
+        200,
+        true,
+        "OTP verification successfully"
+    )
+});
+
+// resend otp controller
+export const reSendOTP = asyncHandler(async (req: Request, res: Response) => {
+    // get email from req.body
+    const { email } = req.body;
+
+    // validation
+    if (!email) {
+        return sendResponse(
+            res,
+            400,
+            false,
+            "Email required"
+        )
+    }
+
+    // check user exists
+    const user = await userRepository.findOne({
+        where: { email }
+    })
+
+    if (!user) {
+        return sendResponse(
+            res,
+            404,
+            false,
+            "User not found"
+        )
+    }
+
+    // check user is verified or not
+    if (!user.isVerified) {
+        return sendResponse(
+            res,
+            401,
+            false,
+            "User is not verified"
+        )
+    }
+
+    // generate new OTP
+    const otp = generateOTP();
+
+    // expiry of an otp
+    const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 min
+
+    // save otp in db
+    const emailVerificationRecord = emailVerificationRepository.create({
+        otp,
+        expiresAt,
+        user
+    })
+
+    await emailVerificationRepository.save(emailVerificationRecord);
+
+    // send email
+    await sendEmail(
+        user.email,
+        "Verify your ConnectGram account",
+        verificationEmailTemplate(user.fullName, otp)
+    )
+
+    return sendResponse(
+        res,
+        201,
+        true,
+        "OTP is sended successfully"
+    )
+})
