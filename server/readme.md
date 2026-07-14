@@ -1,9 +1,15 @@
+<!-- day 1) -->
 <!-- Project setup -->
 <!-- Backend setup -->
 <!-- install dependencies -->
 <!-- follow feature based folder structure(Moduler approach) -->
 <!-- connect database -->
 <!-- create error.middleware, resonse utility and async-handler -->
+<!-- create user entity and route, and controller -->
+
+<!-- day 2) -->
+<!-- create otp(email verification entity) -->
+<!-- configuration to nodemailer(to send otp to email) -->
 
 <!-- Project Roadmap -->
 Phase 1 ✅ Project Setup

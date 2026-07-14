@@ -20,7 +20,12 @@ export const registerUser = asyncHandler(async (req: Request, res: Response) => 
     })
 
     if (existingUsername) {
-        throw new Error("Username already exists")
+        return sendResponse(
+            res,
+            409,
+            false,
+            "Username already exists"
+        )
     }
 
     // Check if email already exists
@@ -29,7 +34,12 @@ export const registerUser = asyncHandler(async (req: Request, res: Response) => 
     })
 
     if (existingEmail) {
-        throw new Error("Email already exists")
+        return sendResponse(
+            res,
+            409,
+            false,
+            "Email already exists"
+        )
     }
 
     // hashed the password
@@ -58,3 +68,6 @@ export const registerUser = asyncHandler(async (req: Request, res: Response) => 
         userWithoutPassword,
     );
 });
+
+
+// joi validation
