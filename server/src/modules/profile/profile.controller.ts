@@ -17,6 +17,15 @@ export const getUserProfile = asyncHandler(async (req: Request, res: Response) =
         )
     }
 
+    if (!username.trim()) {
+        return sendResponse(
+            res,
+            400,
+            false,
+            "Username is required"
+        )
+    }
+
     // get user from database
     const user = await userRepository.findOne({
         where: { username }
@@ -48,6 +57,86 @@ export const getUserProfile = asyncHandler(async (req: Request, res: Response) =
         200,
         true,
         "User profile fetched successfully",
+        profile
+    )
+})
+
+// update user profile controller
+export const updateUserProfile = asyncHandler(async (req: Request, res: Response) => {
+    // get fullName, bio, website from req.body
+    const { fullName, bio, website } = req.body;
+
+    // get logged user
+    const user = req.user;
+
+    // validation
+    if (
+        fullName === undefined &&
+        bio === undefined &&
+        website === undefined
+    ) {
+        return sendResponse(
+            res,
+            400,
+            false,
+            "Provide atleast one field to update"
+        )
+    }
+
+    // full name validation 
+    if (fullName && fullName.length > 100) {
+        return sendResponse(
+            res,
+            400,
+            false,
+            "Full name can't exceed 100 character"
+        )
+    }
+
+    // bio validation
+    if (bio && bio.length > 150) {
+        return sendResponse(
+            res,
+            400,
+            false,
+            "Bio can't exced 150 characters"
+        )
+    }
+
+    // update fileds 
+    if (fullName !== undefined) {
+        user.fullName = fullName.trim();
+    }
+
+    if (bio !== undefined) {
+        user.bio = bio;
+    }
+
+    if (website !== undefined) {
+        user.website = website;
+    }
+
+    // save updated user
+    const updatedUser = await userRepository.save(user);
+
+    // public response
+    const profile = {
+        id: updatedUser.id,
+        username: updatedUser.username,
+        fullName: updatedUser.fullName,
+        profilePicture: updatedUser.profilePicture,
+        bio: updatedUser.bio,
+        website: updatedUser.website,
+        isVerified: updatedUser.isVerified,
+        createdAt: updatedUser.createdAt,
+        updatedAt: updatedUser.updatedAt
+    };
+
+    return sendResponse(
+        res,
+        200,
+        true,
+        "Profile Updated successfully",
         profile
     )
 })
