@@ -11,6 +11,12 @@
 <!-- create otp(email verification entity) -->
 <!-- configuration to nodemailer(to send otp to email) -->
 
+<!-- day 3) -->
+<!-- logout api -->
+<!-- refresh-token api -->
+<!-- auth middleware -->
+<!-- get-me api -->
+
 <!-- Project Roadmap -->
 Phase 1 ✅ Project Setup
         │

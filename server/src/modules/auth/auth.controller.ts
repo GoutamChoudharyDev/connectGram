@@ -10,9 +10,10 @@ import { verificationEmailTemplate } from "../../templates/verification-email.js
 import { generateAccessToken, generateRefreshToken } from "../../utils/tokens.utils.js";
 import { cookiesOptions } from "../../utils/cookies-options.utils.js";
 
-//Note : joi validation for email(pending)
+import jwt, { Jwt } from "jsonwebtoken";
+import { env } from "../../config/env.config.js";
 
-// register user controller
+// register user controller(todo: joi validation for email)
 export const registerUser = asyncHandler(async (req: Request, res: Response) => {
     // get data from frontend(req.body)
     const { username, email, password, fullName } = req.body;
@@ -114,7 +115,6 @@ export const registerUser = asyncHandler(async (req: Request, res: Response) => 
         userWithoutPassword,
     );
 });
-
 
 // verify email controller
 export const verifyEmail = asyncHandler(async (req: Request, res: Response) => {
@@ -278,7 +278,7 @@ export const reSendOTP = asyncHandler(async (req: Request, res: Response) => {
     )
 })
 
-// login controller
+// login controller : todo(store refresh token in db)
 export const loginUser = asyncHandler(async (req: Request, res: Response) => {
     // get email and password from (req.body)
     const { email, password } = req.body;
@@ -353,6 +353,91 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
         200,
         true,
         "User logged in successfully",
+        userWithoutPassword
+    )
+})
+
+// payload interface
+interface JwtPayload {
+    id: number;
+}
+
+// access refresh token controller
+export const refreshAccessToken = asyncHandler(async (req: Request, res: Response) => {
+    // get token from cookies
+    const token = req.cookies?.refreshToken;
+
+    if (!token) {
+        return sendResponse(
+            res,
+            401,
+            false,
+            "Unatherized access"
+        )
+    }
+
+    // verify token
+    const decoded = jwt.verify(token, env.REFRESH_SECRET_KEY) as JwtPayload;
+
+    // find user 
+    const user = await userRepository.findOne({
+        where: { id: decoded.id }
+    })
+
+    if (!user) {
+        return sendResponse(
+            res,
+            401,
+            false,
+            "Unautherized"
+        )
+    }
+
+    // generate access token
+    const accessToken = generateAccessToken(user.id);
+
+    // set in cookies
+    res.cookie("accessToken", accessToken, {
+        ...cookiesOptions,
+        maxAge: 10 * 60 * 1000 // 10 min
+    });
+
+    return sendResponse(
+        res,
+        200,
+        true,
+        "Access token generated"
+    )
+})
+
+// logout controller
+export const logoutUser = asyncHandler(async (req: Request, res: Response) => {
+    // clear the cookie
+    res.clearCookie("accessToken", cookiesOptions)
+
+    res.clearCookie("refreshToken", cookiesOptions)
+
+    return sendResponse(
+        res,
+        200,
+        true,
+        "User logged out successfully"
+    )
+})
+
+// get me controller
+export const getMe = asyncHandler(async (req: Request, res: Response) => {
+    // get logged in user 
+    const user = req.user;
+
+    // remove password
+    const { password: _, ...userWithoutPassword } = user;
+
+    return sendResponse(
+        res,
+        200,
+        true,
+        "User fetched successfully",
         userWithoutPassword
     )
 })
