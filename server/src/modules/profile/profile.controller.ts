@@ -2,6 +2,8 @@ import { userRepository } from "../../repositories/user.repository.js";
 import { asyncHandler } from "../../utils/async-handler.utils.js";
 import { Request, Response } from "express";
 import { sendResponse } from "../../utils/response.utils.js";
+import cloudinary from "../../config/cloudinary.config.js";
+import { env } from "../../config/env.config.js";
 
 // get user profile controller
 export const getUserProfile = asyncHandler(async (req: Request, res: Response) => {
@@ -138,5 +140,50 @@ export const updateUserProfile = asyncHandler(async (req: Request, res: Response
         true,
         "Profile Updated successfully",
         profile
+    )
+})
+
+// update profile picture
+export const updateProfilePicture = asyncHandler(async (req: Request, res: Response) => {
+    // get logged in user
+    const user = req.user;
+
+    // get uploaded file
+    const file = req.file;
+    console.log("file: ", file); // comming
+
+    // validation
+    if (!file) {
+        return sendResponse(
+            res,
+            400,
+            false,
+            "Profile picture is required"
+        )
+    }
+
+    // // // upload image to cloudinary
+    const uploadedImage = await cloudinary.uploader.upload(
+        `data:${file.mimetype};base64,${file.buffer.toString("base64")}`,
+        {
+            folder: "connectGram/profile-pictures"
+        }
+    )
+
+    // update profile picture
+    user.profilePicture = uploadedImage.secure_url;
+
+    // save user
+    await userRepository.save(user);
+
+    // return response
+    return sendResponse(
+        res,
+        200,
+        true,
+        "Profile picture updated successfully",
+        {
+            profilePicture: user.profilePicture
+        }
     )
 })

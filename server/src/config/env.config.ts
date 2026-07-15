@@ -23,5 +23,10 @@ export const env = {
     ACCESS_SECRET_KEY: process.env.ACCESS_SECRET_KEY as string,
     ACCESS_TOKEN_EXPIRY: process.env.ACCESS_TOKEN_EXPIRY as SignOptions["expiresIn"],
     REFRESH_SECRET_KEY: process.env.REFRESH_SECRET_KEY as string,
-    REFRESH_TOKEN_EXPIRY: process.env.REFRESH_TOKEN_EXPIRY as SignOptions["expiresIn"]
+    REFRESH_TOKEN_EXPIRY: process.env.REFRESH_TOKEN_EXPIRY as SignOptions["expiresIn"],
+
+    // cloudinary configuration details
+    CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+    CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+    CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
 }
