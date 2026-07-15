@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { getUserProfile, updateProfilePicture, updateUserProfile } from "./profile.controller.js";
+import {
+    deleteProfilePicture,
+    getUserProfile,
+    updateProfilePicture,
+    updateUserProfile
+} from "./profile.controller.js";
 import { isAuth } from "../../middleware/auth.middleware.js";
 import { upload } from "../../middleware/multer.middleware.js";
 
@@ -14,7 +19,7 @@ profileRouter.patch(
     upload.single("profilePicture"),
     updateProfilePicture
 );
-// profileRouter.delete("/profile-picture", );
+profileRouter.delete("/profile-picture", isAuth ,deleteProfilePicture);
 
 // export 
 export default profileRouter;

@@ -32,6 +32,12 @@ export class User {
     profilePicture!: string | null;
 
     @Column({
+        type: "varchar",
+        nullable: true
+    })
+    profilePicturePublicId!: string | null;
+
+    @Column({
         type: "text",
         nullable: true
     })

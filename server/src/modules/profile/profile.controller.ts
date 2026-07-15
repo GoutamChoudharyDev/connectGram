@@ -172,6 +172,7 @@ export const updateProfilePicture = asyncHandler(async (req: Request, res: Respo
 
     // update profile picture
     user.profilePicture = uploadedImage.secure_url;
+    user.profilePicturePublicId = uploadedImage.public_id;
 
     // save user
     await userRepository.save(user);
@@ -185,5 +186,39 @@ export const updateProfilePicture = asyncHandler(async (req: Request, res: Respo
         {
             profilePicture: user.profilePicture
         }
+    )
+})
+
+export const deleteProfilePicture = asyncHandler(async (req: Request, res: Response) => {
+    // get logged in user
+    const user = req.user;
+    console.log("user", user);
+
+    // check profile picture exists
+    if (!user.profilePicture || !user.profilePicturePublicId) {
+        return sendResponse(
+            res,
+            404,
+            false,
+            "Profile picture not found"
+        )
+    }
+
+    // delete profile pic from cloudinary
+    await cloudinary.uploader.destroy(user.profilePicturePublicId);
+
+    // remove profile pic from DB
+    user.profilePicture = null;
+    user.profilePicturePublicId = null;
+
+    // save user
+    await userRepository.save(user);
+
+    // return response
+    return sendResponse(
+        res,
+        200,
+        true,
+        "Profile picture deleted successfully"
     )
 })
