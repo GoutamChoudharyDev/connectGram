@@ -10,7 +10,7 @@ import { upload } from "../../middleware/multer.middleware.js";
 
 const profileRouter = Router();
 
-// profile api's
+// profile api's 
 profileRouter.get("/:username", getUserProfile);
 profileRouter.patch("/", isAuth, updateUserProfile);
 profileRouter.patch(
@@ -19,7 +19,7 @@ profileRouter.patch(
     upload.single("profilePicture"),
     updateProfilePicture
 );
-profileRouter.delete("/profile-picture", isAuth ,deleteProfilePicture);
+profileRouter.delete("/profile-picture", isAuth, deleteProfilePicture);
 
 // export 
 export default profileRouter;
