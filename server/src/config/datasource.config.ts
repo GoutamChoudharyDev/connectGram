@@ -3,6 +3,7 @@ import { DataSource } from "typeorm";
 import { env } from "./env.config.js";
 import { User } from "../entities/user.entity.js";
 import { EmailVerification } from "../entities/emailVerification.entity.js";
+import { Follow } from "../entities/follow.entity.js";
 
 // Configure TypeORM and connect to Postgres
 const AppDataSource = new DataSource({
@@ -23,7 +24,8 @@ const AppDataSource = new DataSource({
     // Register entities
     entities: [
         User,
-        EmailVerification
+        EmailVerification,
+        Follow
     ],
 
     // Migrations

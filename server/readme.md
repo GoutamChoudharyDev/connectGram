@@ -43,6 +43,13 @@
 
 ---
 
+### ✅ Day 4
+- [x] Follow entity
+- [x] followUser api
+- [x] unfollowUser api
+- [x] getFollowers api
+- [x] getFollowings api
+
 # 🚀 Project Roadmap
 
 ## ✅ Phase 1 — Project Setup
