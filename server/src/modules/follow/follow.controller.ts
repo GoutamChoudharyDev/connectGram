@@ -249,5 +249,55 @@ export const getFollowing = asyncHandler(async (req: Request, res: Response) => 
 
 // getFollowStatus controller
 export const getFollowStatus = asyncHandler(async (req: Request, res: Response) => {
+    // get loggedInUser
+    const loggedInUser = req.user;
 
+    // get targeted user
+    const userId = Number(req.params.userId);
+
+    // validation
+    if (Number.isNaN(userId)) {
+        return sendResponse(
+            res,
+            400,
+            false,
+            "Invalid user id"
+        )
+    }
+
+    // find user 
+    const targetUser = await userRepository.findOne({
+        where: { id: userId }
+    })
+
+    if (!targetUser) {
+        return sendResponse(
+            res,
+            404,
+            false,
+            "User not found"
+        )
+    }
+
+    // find follow records
+    const existingFollow = await followRepository.findOne({
+        where: {
+            follower: {
+                id: loggedInUser.id
+            },
+            following: {
+                id: targetUser.id
+            }
+        }
+    })
+
+    return sendResponse(
+        res,
+        200,
+        true,
+        "Follow status fetched successfully",
+        {
+            isFollowing: !!existingFollow
+        }
+    )
 })
