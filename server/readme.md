@@ -45,10 +45,11 @@
 
 ### ✅ Day 4
 - [x] Follow entity
-- [x] followUser api
-- [x] unfollowUser api
-- [x] getFollowers api
-- [x] getFollowings api
+- [x] followUser API
+- [x] unfollowUser API
+- [x] getFollowers API
+- [x] getFollowings API
+- [x] getFollowStatus API
 
 # 🚀 Project Roadmap
 
@@ -81,11 +82,12 @@
 
 ---
 
-## ⏳ Phase 4 — Follow System
+## ✅ Phase 4 — Follow System
 - Follow User
 - Unfollow User
 - Followers List
 - Following List
+- Follow status
 - Follow Requests (Private Accounts)
 
 ---
