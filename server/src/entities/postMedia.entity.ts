@@ -11,17 +11,21 @@ export class PostMedia {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column()
+    @Column({
+        type: "text"
+    })
     url!: string;
 
-    @Column()
+    @Column({
+        type: "text"
+    })
     publicId!: string;
 
     @Column({
         type: "enum",
         enum: MediaType
     })
-    type!: "IMAGE" | "VIDEO";
+    type!: MediaType;
 
     @ManyToOne(() => Post, {
         onDelete: "CASCADE"
