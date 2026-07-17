@@ -58,6 +58,8 @@
 - [x] get all post 
 - [x] update post 
 - [x] delete post 
+- [x] like post 
+- [x] unlike post 
 
 
 # 🚀 Project Roadmap
