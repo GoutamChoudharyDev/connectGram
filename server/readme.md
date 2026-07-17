@@ -54,7 +54,11 @@
 - [x] create post api
 
 ### ✅ Day 5
-- [x] 
+- [x] get post 
+- [x] get all post 
+- [x] update post 
+- [x] delete post 
+
 
 # 🚀 Project Roadmap
 
@@ -97,7 +101,7 @@
 
 ---
 
-## ⏳ Phase 5 — Posts
+## ✅ Phase 5 — Posts
 - Create Post
 - Multiple Images/Videos
 - Edit Post
@@ -107,27 +111,27 @@
 
 ---
 
-## ⏳ Phase 6 — Reels
-- Upload Reel
-- Edit Reel
-- Delete Reel
-- Reel Feed
-- Reel Views
-
----
-
-## ⏳ Phase 7 — Likes
+## ⏳ Phase 6 — Likes
 - Like/Unlike Post
 - Like/Unlike Reel
 - Like Count
 
 ---
 
-## ⏳ Phase 8 — Comments
+## ⏳ Phase 7 — Comments
 - Add Comment
 - Nested Comments
 - Edit Comment
 - Delete Comment
+
+---
+
+## ⏳ Phase 8 — Chat
+- Conversations
+- Send Message
+- Image Messages
+- Read Receipts
+- Socket.IO Integration
 
 ---
 
@@ -139,15 +143,14 @@
 
 ---
 
-## ⏳ Phase 10 — Chat
-- Conversations
-- Send Message
-- Image Messages
-- Read Receipts
-- Socket.IO Integration
+## ⏳ Phase  — Reels
+- Upload Reel
+- Edit Reel
+- Delete Reel
+- Reel Feed
+- Reel Views
 
 ---
-
 ## ⏳ Phase 11 — Sharing
 - Share Post
 - Share Reel

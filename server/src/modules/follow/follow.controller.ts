@@ -172,26 +172,28 @@ export const getFollowers = asyncHandler(async (req: Request, res: Response) => 
         relations: {
             follower: true
         },
+        select: {
+            id: true,
+
+            follower: {
+                id: true,
+                username: true,
+                fullName: true,
+                profilePicture: true,
+                isVerified: true
+            }
+        },
         order: {
             createdAt: "DESC"
-        }
+        },
     })
-
-    // format respone
-    const followersList = followers.map((follow) => ({
-        id: follow.follower.id,
-        username: follow.follower.username,
-        fullName: follow.follower.fullName,
-        profilePicture: follow.follower.profilePicture,
-        isVerified: follow.follower.isVerified
-    }))
 
     return sendResponse(
         res,
         200,
         true,
         "Fetched all followers successfully",
-        followersList
+        followers
     )
 })
 
@@ -224,26 +226,28 @@ export const getFollowing = asyncHandler(async (req: Request, res: Response) => 
         relations: {
             following: true
         },
+        select: {
+            id: true,
+
+            following: {
+                id: true,
+                username: true,
+                fullName: true,
+                profilePicture: true,
+                isVerified: true
+            }
+        },
         order: {
             createdAt: "DESC"
         }
     })
-
-    // format respone
-    const followingList = followings.map((follow) => ({
-        id: follow.following.id,
-        username: follow.following.username,
-        fullName: follow.following.fullName,
-        profilePicture: follow.following.profilePicture,
-        isVerified: follow.following.isVerified
-    }))
 
     return sendResponse(
         res,
         200,
         true,
         "Fetched all following users successfully",
-        followingList
+        followings
     )
 })
 

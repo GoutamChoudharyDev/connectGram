@@ -159,41 +159,37 @@ export const getAllPosts = asyncHandler(async (req: Request, res: Response) => {
     // calculate skip
     const skip = (page - 1) * limit;
 
-    // fetch posts (user + media)
     const [posts, totalPosts] = await postRepository.findAndCount({
         relations: {
             user: true,
             media: true
+        },
+        select: {
+            id: true,
+            caption: true,
+            location: true,
+            createdAt: true,
+
+            user: {
+                id: true,
+                username: true,
+                fullName: true,
+                profilePicture: true,
+                isVerified: true
+            },
+
+            media: {
+                id: true,
+                url: true,
+                type: true
+            }
         },
         order: {
             createdAt: "DESC"
         },
         skip,
         take: limit
-    })
-
-    // format posts
-    const postList = posts.map((post) => ({
-        id: post.id,
-        caption: post.caption,
-        location: post.location,
-
-        user: {
-            id: post.user.id,
-            username: post.user.username,
-            fullName: post.user.fullName,
-            profilePicture: post.user.profilePicture,
-            isVerified: post.user.isVerified
-        },
-
-        media: post.media.map((item) => ({
-            id: item.id,
-            url: item.url,
-            type: item.type
-        })),
-
-        createdAt: post.createdAt
-    }))
+    });
 
     // return response
     return sendResponse(
@@ -202,7 +198,7 @@ export const getAllPosts = asyncHandler(async (req: Request, res: Response) => {
         true,
         "All posts fetched successfully",
         {
-            posts: postList,
+            posts,
             pagintion: {
                 page,
                 limit,

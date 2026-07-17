@@ -2,6 +2,7 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, Pri
 import { User } from "./user.entity.js";
 import { PostMedia } from "./postMedia.entity.js";
 import { Relation } from "typeorm";
+import { Like } from "./like.entity.js";
 
 @Entity("posts")
 export class Post {
@@ -33,6 +34,10 @@ export class Post {
         cascade: true
     })
     media!: Relation<PostMedia[]>;
+
+    // Post likes
+    @OneToMany(() => Like, (like) => like.post)
+    likes!: Relation<Like[]>
 
     @CreateDateColumn()
     createdAt!: Date;

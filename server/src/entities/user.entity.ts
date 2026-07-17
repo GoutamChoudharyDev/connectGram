@@ -1,4 +1,7 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, Relation, UpdateDateColumn } from "typeorm";
+import { Post } from "./post.entity.js";
+import { Like } from "./like.entity.js";
+import { Follow } from "./follow.entity.js";
 
 // user entity
 @Entity("users")
@@ -48,6 +51,22 @@ export class User {
         nullable: true
     })
     website!: string | null;
+
+    // Posts created by this user
+    @OneToMany(() => Post, (post) => post.user)
+    posts!: Relation<Post[]>;
+
+    // Posts liked by this user
+    @OneToMany(() => Like, (like) => like.user)
+    likes!: Relation<Like[]>;
+
+    // Users this user follows
+    @OneToMany(() => Follow, (follow) => follow.follower)
+    followings!: Relation<Follow[]>;
+
+    // Users following this user
+    @OneToMany(() => Follow, (follow) => follow.following)
+    followers!: Relation<Follow[]>;
 
     @Column({ default: false })
     isVerified!: boolean;

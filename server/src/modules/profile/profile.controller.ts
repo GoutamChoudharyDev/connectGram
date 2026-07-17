@@ -161,7 +161,7 @@ export const updateProfilePicture = asyncHandler(async (req: Request, res: Respo
             "Profile picture is required"
         )
     }
-    
+
     // upload image to cloudinary
     const uploadedImage = await cloudinary.uploader.upload(
         `data:${file.mimetype};base64,${file.buffer.toString("base64")}`,

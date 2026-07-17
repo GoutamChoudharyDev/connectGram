@@ -6,6 +6,7 @@ import { EmailVerification } from "../entities/emailVerification.entity.js";
 import { Follow } from "../entities/follow.entity.js";
 import { Post } from "../entities/post.entity.js";
 import { PostMedia } from "../entities/postMedia.entity.js";
+import { Like } from "../entities/like.entity.js";
 
 // Configure TypeORM and connect to Postgres
 const AppDataSource = new DataSource({
@@ -29,7 +30,8 @@ const AppDataSource = new DataSource({
         EmailVerification,
         Follow,
         Post,
-        PostMedia
+        PostMedia,
+        Like
     ],
 
     // Migrations
