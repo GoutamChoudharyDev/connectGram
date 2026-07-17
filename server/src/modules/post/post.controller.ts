@@ -76,13 +76,45 @@ export const createPost = asyncHandler(async (req: Request, res: Response) => {
 
 // get post controller
 export const getPost = asyncHandler(async (req: Request, res: Response) => {
-    // get post from req.params
+    // get postId from req.params
+    const postId = Number(req.params?.postId);
+
+    // validate postId
+    if (Number.isNaN(postId)) {
+        return sendResponse(
+            res,
+            400,
+            false,
+            "Invalid post id"
+        )
+    }
 
     // find post
+    const post = await postRepository.findOne({
+        where: { id: postId },
+        relations: {
+            user: true,
+            media: true
+        }
+    })
 
-    // validate
+    if (!post) {
+        return sendResponse(
+            res,
+            404,
+            false,
+            "Post not found"
+        )
+    }
 
     // response
+    return sendResponse(
+        res,
+        200,
+        true,
+        "Post fetched successfully",
+        post
+    )
 })
 
 // get All post controller

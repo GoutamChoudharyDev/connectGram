@@ -50,6 +50,11 @@
 - [x] getFollowers API
 - [x] getFollowings API
 - [x] getFollowStatus API
+- [x] post entity 
+- [x] create post api
+
+### ✅ Day 5
+- [x] 
 
 # 🚀 Project Roadmap
 
