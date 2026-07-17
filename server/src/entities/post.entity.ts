@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./user.entity.js";
 import { PostMedia } from "./postMedia.entity.js";
+import { Relation } from "typeorm";
 
 @Entity("posts")
 export class Post {
@@ -25,13 +26,13 @@ export class Post {
         onDelete: "CASCADE"
     })
     @JoinColumn({ name: "userId" })
-    user!: User
+    user!: Relation<User>
 
     // Post media(images/videos)
     @OneToMany(() => PostMedia, (media) => media.post, {
         cascade: true
     })
-    media!: PostMedia[];
+    media!: Relation<PostMedia[]>;
 
     @CreateDateColumn()
     createdAt!: Date;

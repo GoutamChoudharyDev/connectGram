@@ -1,4 +1,4 @@
-import { CreateDateColumn, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { CreateDateColumn, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Relation } from "typeorm";
 import { User } from "./user.entity.js";
 
 @Entity("followers")
@@ -13,14 +13,14 @@ export class Follow {
         onDelete: "CASCADE",
     })
     @JoinColumn({ name: "followerId" })
-    follower!: User;
+    follower!: Relation<User>;
 
     // followed user
     @ManyToOne(() => User, {
         onDelete: "CASCADE",
     })
     @JoinColumn({ name: "followingId" })
-    following!: User;
+    following!: Relation<User>;
 
     @CreateDateColumn()
     createdAt!: Date;

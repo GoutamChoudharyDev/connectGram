@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Relation } from "typeorm";
 import { Post } from "./post.entity.js";
 
 export enum MediaType {
@@ -31,7 +31,7 @@ export class PostMedia {
         onDelete: "CASCADE"
     })
     @JoinColumn({ name: "postId" })
-    post!: Post;
+    post!: Relation<Post>;
 
     @CreateDateColumn()
     createdAt!: Date
