@@ -62,6 +62,9 @@
 - [x] unlike post 
 
 ### ✅ Day 6
+- [x] getPostLikes API
+- [x] getLikeStatus API
+- [x] 
 
 
 # 🚀 Project Roadmap
@@ -115,10 +118,11 @@
 
 ---
 
-## ⏳ Phase 6 — Likes
+## ✅ Phase 6 — Likes
 - Like/Unlike Post
 - Like/Unlike Reel
-- Like Count
+- Get Likes
+- Get Like Status
 
 ---
 

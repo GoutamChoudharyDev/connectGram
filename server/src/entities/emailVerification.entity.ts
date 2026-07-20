@@ -18,11 +18,9 @@ export class EmailVerification {
     @CreateDateColumn()
     createdAt!: Date;
 
-    @ManyToOne(() => User, {
-        onDelete: "CASCADE" // it means if user is deleted then all records will automatically deleted
+    @ManyToOne(() => User, (user) => user.emailVerifications, {
+        onDelete: "CASCADE"
     })
-    @JoinColumn({
-        name: "userId"
-    })
+    @JoinColumn({ name: "userId" })
     user!: Relation<User>;
 }

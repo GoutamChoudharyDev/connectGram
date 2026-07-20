@@ -9,14 +9,14 @@ export class Follow {
     id!: number;
 
     // user who follows
-    @ManyToOne(() => User, {
+    @ManyToOne(() => User, (user) => user.followings, {
         onDelete: "CASCADE",
     })
     @JoinColumn({ name: "followerId" })
     follower!: Relation<User>;
 
     // followed user
-    @ManyToOne(() => User, {
+    @ManyToOne(() => User, (user) => user.followers, {
         onDelete: "CASCADE",
     })
     @JoinColumn({ name: "followingId" })

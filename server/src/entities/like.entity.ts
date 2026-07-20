@@ -19,7 +19,7 @@ export class Like {
     @ManyToOne(() => Post, (post) => post.likes, {
         onDelete: "CASCADE"
     })
-    @JoinColumn()
+    @JoinColumn({ name: "postId" })
     post!: Relation<Post>
 
     // createdAt
