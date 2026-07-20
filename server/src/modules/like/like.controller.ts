@@ -129,17 +129,121 @@ export const unlikePost = asyncHandler(async (req: Request, res: Response) => {
     return sendResponse(
         res,
         200,
-        false,
+        true,
         "Post unlike successfully"
     )
 })
 
 // getPostLikes controller
 export const getPostLikes = asyncHandler(async (req: Request, res: Response) => {
+    // get post Id from params
+    const postId = Number(req.params.postId);
 
+    // validate id
+    if (Number.isNaN(postId)) {
+        return sendResponse(
+            res,
+            400,
+            false,
+            "Invalid post id"
+        )
+    }
+
+    // find post
+    const post = await postRepository.findOne({
+        where: { id: postId }
+    })
+
+    // post exists validation
+    if (!post) {
+        return sendResponse(
+            res,
+            404,
+            false,
+            "Post not found"
+        )
+    }
+
+    // get post likes
+    const likes = await likeRepository.find({
+        where: {
+            post: { id: postId }
+        },
+        relations: {
+            user: true
+        },
+        select: {
+            id: true,
+            createdAt: true,
+            user: {
+                id: true,
+                username: true,
+                fullName: true,
+                profilePicture: true,
+                isVerified: true
+            }
+        }
+    })
+
+    // response
+    return sendResponse(
+        res,
+        200,
+        true,
+        "Likes fetched successfully",
+        likes
+    )
 })
 
 // getLikeStatus controller
 export const getLikeStatus = asyncHandler(async (req: Request, res: Response) => {
+    // get user
+    const user = req.user;
 
+    // get postId
+    const postId = Number(req.params.postId);
+
+    // validate post id
+    if (Number.isNaN(postId)) {
+        return sendResponse(
+            res,
+            400,
+            false,
+            "Invalid post id",
+        )
+    }
+
+    // find post
+    const post = await postRepository.findOne({
+        where: { id: postId }
+    })
+
+    // validate post exists
+    if (!post) {
+        return sendResponse(
+            res,
+            404,
+            false,
+            "Post not found",
+        )
+    }
+
+    // check if the user has liked the post
+    const like = await likeRepository.findOne({
+        where: {
+            user: { id: user.id },
+            post: { id: postId }
+        }
+    })
+
+    // return response
+    return sendResponse(
+        res,
+        200,
+        true,
+        "Like status fetched successfully",
+        {
+            isLike: !!like
+        }
+    )
 })

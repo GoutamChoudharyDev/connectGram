@@ -61,6 +61,8 @@
 - [x] like post 
 - [x] unlike post 
 
+### ✅ Day 6
+
 
 # 🚀 Project Roadmap
 

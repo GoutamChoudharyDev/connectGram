@@ -4,10 +4,12 @@ import { getLikeStatus, getPostLikes, likePost, unlikePost } from "./like.contro
 
 const likeRouter = Router();
 
+// public api
+likeRouter.get("/:postId", getPostLikes);
+
 // private api's
 likeRouter.post("/:postId", isAuth, likePost);
 likeRouter.delete("/:postId", isAuth, unlikePost);
-likeRouter.get("/:postId", isAuth, getPostLikes);
 likeRouter.get("/status/:postId", isAuth, getLikeStatus);
 
 export default likeRouter;
