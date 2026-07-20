@@ -4,6 +4,8 @@ import { Like } from "./like.entity.js";
 import { Follow } from "./follow.entity.js";
 import { Comment } from "./comment.entity.js";
 import { EmailVerification } from "./emailVerification.entity.js";
+import { Message } from "./message.entity.js";
+import { ConversationParticipant } from "./conversationParticipants.entity.js";
 
 // user entity
 @Entity("users")
@@ -76,6 +78,14 @@ export class User {
     // Comments created by this user
     @OneToMany(() => Comment, (comment) => comment.user)
     comments!: Relation<Comment[]>;
+
+    // Message created by this user
+    @OneToMany(() => Message, (message) => message.sender)
+    messages!: Relation<Message[]>
+
+    // conversationParticipants by this user
+    @OneToMany(() => ConversationParticipant, (participant) => participant.user)
+    conversationParticipants!: Relation<ConversationParticipant[]>
 
     @Column({ default: false })
     isVerified!: boolean;

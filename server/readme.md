@@ -64,7 +64,12 @@
 ### ✅ Day 6
 - [x] getPostLikes API
 - [x] getLikeStatus API
-- [x] 
+- [x] getComment API
+- [x] getReplies API
+- [x] addComment API
+- [x] updateComment API
+- [x] deleteComment API
+- [x] replyComment API
 
 
 # 🚀 Project Roadmap
@@ -126,7 +131,7 @@
 
 ---
 
-## ⏳ Phase 7 — Comments
+## ✅ Phase 7 — Comments
 - Add Comment
 - Nested Comments
 - Edit Comment
