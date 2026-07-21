@@ -74,6 +74,15 @@
 - [x] conversation participants entity
 - [x] message  entity
 
+### ✅ Day 7
+- [x] createConversation
+- [x] getMyConversations
+- [x] getConversationById
+- [x] sendMessage
+- [x] getMessages
+- [x] markMessageAsRead
+- [x] unsendMessage
+
 
 # 🚀 Project Roadmap
 
