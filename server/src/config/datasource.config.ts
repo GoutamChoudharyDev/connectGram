@@ -8,6 +8,9 @@ import { Post } from "../entities/post.entity.js";
 import { PostMedia } from "../entities/postMedia.entity.js";
 import { Like } from "../entities/like.entity.js";
 import { Comment } from "../entities/comment.entity.js";
+import { Conversation } from "../entities/conversation.entity.js";
+import { ConversationParticipant } from "../entities/conversationParticipants.entity.js";
+import { Message } from "../entities/message.entity.js";
 
 // Configure TypeORM and connect to Postgres
 const AppDataSource = new DataSource({
@@ -33,7 +36,10 @@ const AppDataSource = new DataSource({
         Post,
         PostMedia,
         Like,
-        Comment
+        Comment,
+        Conversation,
+        ConversationParticipant,
+        Message
     ],
 
     // Migrations

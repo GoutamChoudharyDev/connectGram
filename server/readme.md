@@ -70,6 +70,9 @@
 - [x] updateComment API
 - [x] deleteComment API
 - [x] replyComment API
+- [x] conversation entity
+- [x] conversation participants entity
+- [x] message  entity
 
 
 # 🚀 Project Roadmap

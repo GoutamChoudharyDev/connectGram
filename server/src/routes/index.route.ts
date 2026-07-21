@@ -7,6 +7,7 @@ import followRouter from "../modules/follow/follow.routes.js";
 import postRouter from "../modules/post/post.routes.js";
 import likeRouter from "../modules/like/like.routes.js";
 import commentRouter from "../modules/comment/comment.routes.js";
+import chatRouter from "../modules/chat/chat.routes.js";
 
 // initialize router
 const router = Router();
@@ -18,6 +19,7 @@ router.use("/post", postRouter);
 
 router.use("/likes", likeRouter);
 router.use("/comments", commentRouter);
+router.use("/chat", chatRouter);
 
 // export 
 export default router;
