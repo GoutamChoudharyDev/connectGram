@@ -83,6 +83,10 @@
 - [x] markMessageAsRead
 - [x] unsendMessage
 
+## Socket.io
+- [x] installing socket io and setup
+- [x] 1) create a HTTP server and then listen it
+
 
 # 🚀 Project Roadmap
 
