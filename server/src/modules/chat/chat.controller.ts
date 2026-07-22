@@ -4,6 +4,7 @@ import { sendResponse } from "../../utils/response.utils.js";
 import { conversationParticipantRepository, conversationRepository, messageRepository } from "../../repositories/chat.repository.js";
 import { userRepository } from "../../repositories/user.repository.js";
 import { In } from "typeorm";
+import { getIo, getSocketId } from "../socket/socket.js";
 
 // createConversation controller
 export const createConversation = asyncHandler(async (req: Request, res: Response) => {
@@ -424,6 +425,22 @@ export const sendMessage = asyncHandler(async (req: Request, res: Response) => {
 
     existingConversation.updatedAt = new Date();
     await conversationRepository.save(existingConversation);
+
+    // 1) find receiver
+    const receiver = existingConversation.participants.find(
+        (participant) => participant.user.id !== user.id
+    )
+
+    // 2) get receivers socket id
+    const receiverSocketId = receiver ? getSocketId(receiver.user.id) : undefined;
+
+    // get Socket.io instance
+    const io = getIo();
+
+    // 3) check whether receiver is online
+    if (receiverSocketId) {
+        io.to(receiverSocketId).emit("new-message", savedMessage);
+    }
 
     // return response
     return sendResponse(

@@ -10,7 +10,7 @@ import { verificationEmailTemplate } from "../../templates/verification-email.js
 import { generateAccessToken, generateRefreshToken } from "../../utils/tokens.utils.js";
 import { cookiesOptions } from "../../utils/cookies-options.utils.js";
 
-import jwt, { Jwt } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { env } from "../../config/env.config.js";
 
 // register user controller(todo: joi validation for email)

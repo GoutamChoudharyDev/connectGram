@@ -24,7 +24,6 @@ export const initializeSocket = (server: HttpServer) => {
         socket.on("register-user", (userId: number) => {
             // store userid and socketid
             onlineUsers.set(userId, socket.id)
-
             console.log(`User ${userId} registered`);
         });
 
