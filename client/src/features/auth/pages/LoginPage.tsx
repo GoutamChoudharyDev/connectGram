@@ -1,8 +1,8 @@
 import HeroSection from "../components/HeroSection";
-import RegisterForm from "../components/RegisterForm";
+import LoginForm from "../components/LoginForm";
 import AuthLayout from "../layout/AuthLayout";
 
-const RegisterPage = () => {
+const LoginPage = () => {
     return (
         <AuthLayout>
             <div className="mx-auto grid min-h-[calc(100vh-120px)] max-w-7xl grid-cols-1 lg:grid-cols-12">
@@ -11,27 +11,27 @@ const RegisterPage = () => {
                     <HeroSection
                         heading={
                             <>
-                                <span className="block">Connecting</span>
+                                <span className="block">Welcome</span>
                                 <span className="block text-blue-600">
-                                    People,
+                                    Back.
                                 </span>
-                                <span className="block">Creating</span>
+                                <span className="block">Stay</span>
                                 <span className="block text-blue-600">
-                                    Moments.
+                                    Connected.
                                 </span>
                             </>
                         }
-                        description="Share your world, discover new people, and create unforgettable moments with ConnectGram."
+                        description="Sign in to reconnect with your friends, discover new moments, and continue your ConnectGram journey."
                     />
                 </div>
 
-                {/* Register Form */}
+                {/* Login Form */}
                 <div className="flex items-center justify-center lg:col-span-7">
-                    <RegisterForm />
+                    <LoginForm />
                 </div>
             </div>
         </AuthLayout>
     );
 };
 
-export default RegisterPage;
+export default LoginPage;
