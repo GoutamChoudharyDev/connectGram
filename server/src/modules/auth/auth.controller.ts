@@ -238,15 +238,12 @@ export const reSendOTP = asyncHandler(async (req: Request, res: Response) => {
         )
     }
 
-    // check user is verified or not
-    if (!user.isVerified) {
-        return sendResponse(
-            res,
-            401,
-            false,
-            "User is not verified"
-        )
-    }
+    // delete old otp
+    await emailVerificationRepository.delete({
+        user: {
+            id: user.id
+        }
+    });
 
     // generate new OTP
     const otp = generateOTP();
