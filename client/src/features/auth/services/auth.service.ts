@@ -62,3 +62,15 @@ export const logoutApi = async () => {
         throw error;
     }
 }
+
+// getMe api
+export const getMeApi = async () => {
+    try {
+        const res = await api.get(`/api/auth/me`);
+        return res.data;
+    } catch (error) {
+        const err = error as AxiosError<{ message: string }>
+        toast.error(err.response?.data?.message || "Something went wrong");
+        throw error;
+    }
+}

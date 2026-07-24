@@ -7,37 +7,44 @@ import {
     Plus,
     Settings,
 } from "lucide-react";
-import { Link, NavLink } from "react-router-dom";
-
-const menuItems = [
-    {
-        name: "Home",
-        icon: Home,
-        path: "/",
-    },
-    {
-        name: "Explore",
-        icon: Search,
-        path: "/explore",
-    },
-    {
-        name: "Notifications",
-        icon: Bell,
-        path: "/notifications",
-    },
-    {
-        name: "Messages",
-        icon: MessageCircle,
-        path: "/messages",
-    },
-    {
-        name: "Profile",
-        icon: User,
-        path: "/profile",
-    },
-];
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 const Sidebar = () => {
+    // get user and loading from useAuth
+    const { user } = useAuth();
+
+    const menuItems = [
+        {
+            name: "Home",
+            icon: Home,
+            path: "/home-page",
+        },
+        {
+            name: "Explore",
+            icon: Search,
+            path: "/explore",
+        },
+        {
+            name: "Notifications",
+            icon: Bell,
+            path: "/notifications",
+        },
+        {
+            name: "Messages",
+            icon: MessageCircle,
+            path: "/messages",
+        },
+        {
+            name: "Profile",
+            icon: User,
+            path: `/profile/${user?.username}`,
+        },
+    ];
+
+    // navigate
+    const navigate = useNavigate();
+
     return (
         <aside className="fixed left-0 top-0 hidden h-screen w-64 border-r border-zinc-800 bg-black lg:flex lg:flex-col">
             {/* Logo */}
@@ -80,7 +87,9 @@ const Sidebar = () => {
 
             {/* Create Post */}
             <div className="px-4">
-                <button className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 font-medium transition hover:bg-blue-500">
+                <button
+                    onClick={() => navigate("/post/add")}
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 font-medium transition hover:bg-blue-500">
                     <Plus size={18} />
                     Create Post
                 </button>
@@ -90,17 +99,17 @@ const Sidebar = () => {
             <div className="m-4 mt-6 flex items-center justify-between rounded-xl border border-zinc-800 bg-zinc-900 p-3">
                 <div className="flex items-center gap-3">
                     <img
-                        src="https://i.pravatar.cc/100?img=12"
+                        src={user?.profilePicture || "https://i.pravatar.cc/220"}
                         alt="User"
                         className="h-11 w-11 rounded-full object-cover"
                     />
 
                     <div>
                         <h3 className="text-sm font-semibold">
-                            Alex Rivera
+                            {user?.fullName}
                         </h3>
                         <p className="text-xs text-zinc-400">
-                            @alexrivera
+                            @{user?.username}
                         </p>
                     </div>
                 </div>

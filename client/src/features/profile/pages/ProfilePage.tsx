@@ -5,7 +5,6 @@ import ProfilePostGrid from "../components/ProfilePostGrid";
 import ProfileTabs from "../components/ProfileTabs";
 import type { Profile } from "../components/types/profile.types";
 import { getProfileApi } from "../service/profile.service";
-// import { toast } from "react-toastify";
 
 const ProfilePage = () => {
     // get username from params
