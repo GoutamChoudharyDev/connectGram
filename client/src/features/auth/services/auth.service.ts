@@ -50,3 +50,15 @@ export const loginApi = async (formData: LoginFormData) => {
         throw error;
     }
 }
+
+// logout api
+export const logoutApi = async () => {
+    try {
+        const res = await api.post(`/api/auth/logout`);
+        return res.data;
+    } catch (error) {
+        const err = error as AxiosError<{ message: string }>
+        toast.error(err.response?.data?.message || "Something went wrong");
+        throw error;
+    }
+}

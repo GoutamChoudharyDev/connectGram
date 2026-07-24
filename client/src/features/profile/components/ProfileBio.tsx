@@ -1,25 +1,31 @@
-const ProfileBio = () => {
-    return (
-        <div className="mt-4 space-y-2">
-            {/* Full Name */}
-            <h2 className="text-sm font-semibold text-white">
-                Goutam Choudhary
-            </h2>
+import type { Profile } from "./types/profile.types";
 
-            {/* Bio */}
-            <p className="max-w-md text-sm text-zinc-300">
-                Full Stack Developer 🚀
-                <br />
-                Building modern web applications with React, Node.js and PostgreSQL.
+interface ProfileBioProps {
+    profile: Profile;
+}
+
+const ProfileBio = ({
+    profile
+}: ProfileBioProps) => {
+    return (
+        <div>
+            <h3 className="text-lg font-semibold text-white">
+                {profile.fullName}
+            </h3>
+
+            <p className="mt-2 text-zinc-400">
+                {profile.bio}
             </p>
 
-            {/* Website */}
-            <a
-                href="#"
-                className="text-sm font-medium text-blue-400 hover:underline"
-            >
-                goutam.dev
-            </a>
+            {profile.website && (
+                <a
+                    href={profile.website}
+                    target="_blank"
+                    className="mt-2 block text-blue-400"
+                >
+                    {profile.website}
+                </a>
+            )}
         </div>
     );
 };

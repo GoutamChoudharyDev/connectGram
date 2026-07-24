@@ -39,7 +39,7 @@ const LoginForm = () => {
 
             toast.success(response.message);
 
-            navigate("/")
+            navigate("/home-page")
         } catch (error) {
             console.error(error);
         } finally {
