@@ -1,4 +1,4 @@
-import type { Profile } from "./types/profile.types";
+import type { Profile } from "../types/profile.types";
 
 interface ProfileBioProps {
     profile: Profile;

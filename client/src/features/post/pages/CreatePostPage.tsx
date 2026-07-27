@@ -3,6 +3,9 @@ import MediaUploader from "../components/MediaUploader";
 import PostDetailsForm from "../components/PostDetailsForm";
 import PublishButton from "../components/PublishButton";
 import { useState } from "react";
+import { createPostApi } from "../services/post.service";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const CreatePostPage = () => {
     // usestate
@@ -10,6 +13,49 @@ const CreatePostPage = () => {
         caption: "",
         location: ""
     });
+    const [files, setFiles] = useState<File[]>([]);
+
+    // navigate
+    const navigate = useNavigate();
+
+    // handle create post 
+    const handleCreatePost = async () => {
+        // validation
+        if (files.length === 0) {
+            toast.error("Please select atleast one image or video.");
+            return;
+        }
+
+        try {
+            const data = new FormData();
+
+            // Append all media files
+            files.forEach((file) => {
+                data.append("media", file);
+            });
+
+            // Append other fields
+            data.append("caption", formData.caption)
+            data.append("location", formData.location)
+
+            // Api Call
+            const response = await createPostApi(data);
+            toast.success(response.message);
+
+            // reset form
+            setFiles([]);
+
+            setFormData({
+                caption: "",
+                location: ""
+            });
+
+            // navigate
+            navigate("/home-page");
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <MainLayout>
@@ -28,7 +74,10 @@ const CreatePostPage = () => {
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-5">
                     {/* Media Upload */}
                     <div className="lg:col-span-3">
-                        <MediaUploader />
+                        <MediaUploader
+                            files={files}
+                            setFiles={setFiles}
+                        />
                     </div>
 
                     {/* Post Details */}
@@ -37,7 +86,7 @@ const CreatePostPage = () => {
                             formData={formData}
                             setFormData={setFormData}
                         />
-                        <PublishButton />
+                        <PublishButton onClick={handleCreatePost} />
                     </div>
                 </div>
             </div>

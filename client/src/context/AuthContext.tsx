@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import type { Profile } from "../features/profile/components/types/profile.types";
+import type { Profile } from "../features/profile/types/profile.types";
 
 export interface AuthContextType {
     user: Profile | null;

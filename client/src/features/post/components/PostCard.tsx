@@ -1,25 +1,9 @@
+import type { Post } from "../types/post.types";
 import CommentPreview from "./CommentPreview";
 import PostActions from "./PostActions";
 import PostCaption from "./PostCaption";
 import PostHeader from "./PostHeader";
 import PostMedia from "./PostMedia";
-
-interface Post {
-    id: number;
-    user: {
-        id: number;
-        name: string;
-        username: string;
-        avatar: string;
-    };
-    image: string;
-    caption: string;
-    likes: number;
-    comments: number;
-    isLiked: boolean;
-    isSaved: boolean;
-    createdAt: string;
-}
 
 interface PostCardProps {
     post: Post;
@@ -33,12 +17,12 @@ const PostCard = ({ post }: PostCardProps) => {
                 createdAt={post.createdAt}
             />
 
-            <PostMedia image={post.image} />
+            <PostMedia media={post.media} />
 
             <div className="space-y-4 p-4">
                 <PostActions
-                    likes={post.likes}
-                    comments={post.comments}
+                    likes={0}
+                    comments={0}
                 />
 
                 <PostCaption
@@ -46,9 +30,7 @@ const PostCard = ({ post }: PostCardProps) => {
                     caption={post.caption}
                 />
 
-                <CommentPreview
-                    comments={post.comments}
-                />
+                <CommentPreview comments={0} />
             </div>
         </article>
     );

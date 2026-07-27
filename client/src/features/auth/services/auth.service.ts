@@ -74,3 +74,15 @@ export const getMeApi = async () => {
         throw error;
     }
 }
+
+// refresh access token api
+export const refreshAccessTokenApi = async () => {
+    try {
+        const res = await api.post(`/api/auth/refresh-token`);
+        return res.data;
+    } catch (error) {
+        const err = error as AxiosError<{ message: string }>
+        toast.error(err.response?.data?.message || "Something went wrong");
+        throw error;
+    }
+}

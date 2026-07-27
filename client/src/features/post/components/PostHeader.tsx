@@ -1,14 +1,17 @@
 import { MoreHorizontal } from "lucide-react";
+import type { Post } from "../types/post.types";
 
-interface User {
-    id: number;
-    name: string;
-    username: string;
-    avatar: string;
-}
+// interface User {
+//     id: number;
+//     name: string;
+//     username: string;
+//     avatar: string;
+// }
 
 interface PostHeaderProps {
-    user: User;
+    // user: User;
+    // createdAt: string;
+    user: Post["user"];
     createdAt: string;
 }
 
@@ -17,14 +20,14 @@ const PostHeader = ({ user, createdAt }: PostHeaderProps) => {
         <div className="flex items-center justify-between p-4">
             <div className="flex items-center gap-3">
                 <img
-                    src={user.avatar}
-                    alt={user.name}
+                    src={user.profilePicture}
+                    alt={user.fullName}
                     className="h-11 w-11 rounded-full object-cover"
                 />
 
                 <div>
                     <h3 className="text-sm font-semibold text-white">
-                        {user.name}
+                        {user.username}
                     </h3>
 
                     <div className="flex items-center gap-2 text-xs text-zinc-400">

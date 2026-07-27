@@ -6,36 +6,39 @@ import {
   User,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
-
-const navItems = [
-  {
-    name: "Home",
-    path: "/",
-    icon: Home,
-  },
-  {
-    name: "Explore",
-    path: "/explore",
-    icon: Search,
-  },
-  {
-    name: "Create",
-    path: "/create-post",
-    icon: PlusSquare,
-  },
-  {
-    name: "Activity",
-    path: "/notifications",
-    icon: Heart,
-  },
-  {
-    name: "Profile",
-    path: "/profile",
-    icon: User,
-  },
-];
+import { useAuth } from "../../hooks/useAuth";
 
 const MobileBottomNav = () => {
+  const { user } = useAuth();
+
+  const navItems = [
+    {
+      name: "Home",
+      path: "/home-page",
+      icon: Home,
+    },
+    {
+      name: "Explore",
+      path: "/explore",
+      icon: Search,
+    },
+    {
+      name: "Create",
+      path: "/post/add",
+      icon: PlusSquare,
+    },
+    {
+      name: "Activity",
+      path: "/notifications",
+      icon: Heart,
+    },
+    {
+      name: "Profile",
+      path: `/profile/${user?.username}`,
+      icon: User,
+    },
+  ];
+
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-zinc-800 bg-black lg:hidden">
       <div className="flex items-center justify-around py-2">

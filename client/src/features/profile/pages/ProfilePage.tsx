@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import ProfileHeader from "../components/ProfileHeader";
 import ProfilePostGrid from "../components/ProfilePostGrid";
 import ProfileTabs from "../components/ProfileTabs";
-import type { Profile } from "../components/types/profile.types";
+import type { Profile } from "../types/profile.types";
 import { getProfileApi } from "../service/profile.service";
 
 const ProfilePage = () => {

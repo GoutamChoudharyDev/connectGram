@@ -56,7 +56,7 @@ const PostDetailsForm = ({ formData, setFormData }: PostDetailsFormProps) => {
                     </label>
 
                     <span className="text-xs text-zinc-500">
-                        0 / 2200
+                        0 / 1000
                     </span>
                 </div>
 

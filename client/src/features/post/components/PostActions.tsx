@@ -10,7 +10,7 @@ interface PostActionsProps {
     comments: number;
 }
 
-const PostActions = ({ likes, comments }: PostActionsProps) => {
+const PostActions = ({ comments }: PostActionsProps) => {
     return (
         <div>
             {/* Action Buttons */}
@@ -48,9 +48,9 @@ const PostActions = ({ likes, comments }: PostActionsProps) => {
 
             {/* Likes & Comments */}
             <div className="mt-4 flex items-center gap-6 text-sm">
-                <p className="font-semibold text-white">
+                {/* <p className="font-semibold text-white">
                     {likes.toLocaleString()} likes
-                </p>
+                </p> */}
 
                 <p className="text-zinc-400">
                     {comments} comments

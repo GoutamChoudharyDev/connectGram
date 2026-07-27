@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import AuthContext from "./AuthContext";
-import type { Profile } from "../features/profile/components/types/profile.types";
+import type { Profile } from "../features/profile/types/profile.types";
 import { getMeApi } from "../features/auth/services/auth.service";
 
 interface AuthProviderProps {
