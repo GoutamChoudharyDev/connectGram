@@ -27,9 +27,12 @@ export const getPostApi = async (postId: number) => {
 };
 
 // update post
-export const updatePostApi = async (postId: number, formData: FormData) => {
+export const updatePostApi = async (postId: number, data: {
+    caption: string;
+    location: string
+}) => {
     try {
-        const res = await api.patch(`/api/post/${postId}`, formData);
+        const res = await api.patch(`/api/post/${postId}`, data);
         return res.data;
     } catch (error) {
         const err = error as AxiosError<{ message: string }>;
@@ -41,7 +44,12 @@ export const updatePostApi = async (postId: number, formData: FormData) => {
 // delete post
 export const deletePostApi = async (postId: number) => {
     try {
-        const res = await api.delete(`/api/post/${postId}`);
+        const res = await api.delete(`/api/post/${postId}`, {
+            headers: {
+                "Content-Type":
+                    "multipart/form-data"
+            }
+        });
         return res.data;
     } catch (error) {
         const err = error as AxiosError<{ message: string }>;

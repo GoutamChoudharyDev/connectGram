@@ -22,3 +22,21 @@ export interface Post {
 export interface PostMediaProps {
     media: Post["media"];
 }
+
+export interface PostHeaderProps {
+    user: Post["user"];
+    createdAt: string;
+    isOwner?: boolean;
+    onEdit?: () => void;
+    onDelete?: () => void;
+}
+
+
+export interface PostCardProps {
+    post: Post;
+}
+
+export interface PublishButtonProps {
+    onClick: () => void;
+    text?: string;
+}

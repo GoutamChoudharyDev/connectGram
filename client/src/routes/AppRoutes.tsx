@@ -5,6 +5,7 @@ import VerifyEmailPage from "../features/auth/pages/VerifyEmailPage"
 import ProfilePage from "../features/profile/pages/ProfilePage"
 import HomePage from "../features/post/pages/HomePage"
 import CreatePostPage from "../features/post/pages/CreatePostPage"
+import EditPostPage from "../features/post/pages/EditPostPage"
 
 const AppRoutes = () => {
     return (
@@ -15,6 +16,7 @@ const AppRoutes = () => {
             <Route path="/profile/:username" element={<ProfilePage />} />
             <Route path="/Home-page" element={<HomePage />} />
             <Route path="/post/add" element={<CreatePostPage />} />
+            <Route path="/posts/:postId/edit" element={<EditPostPage />} />
         </Routes>
     )
 }

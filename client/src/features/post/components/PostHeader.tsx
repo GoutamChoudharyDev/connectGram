@@ -1,21 +1,32 @@
-import { MoreHorizontal } from "lucide-react";
-import type { Post } from "../types/post.types";
+import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import type { PostHeaderProps } from "../types/post.types";
 
-// interface User {
-//     id: number;
-//     name: string;
-//     username: string;
-//     avatar: string;
-// }
+const PostHeader = ({ user, createdAt, isOwner = true, onEdit, onDelete }: PostHeaderProps) => {
+    // useStates
+    const [open, setOpen] = useState(false);
+    const menuRef = useRef<HTMLDivElement>(null);
 
-interface PostHeaderProps {
-    // user: User;
-    // createdAt: string;
-    user: Post["user"];
-    createdAt: string;
-}
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                menuRef.current &&
+                !menuRef.current.contains(event.target as Node)
+            ) {
+                setOpen(false);
+            }
+        };
 
-const PostHeader = ({ user, createdAt }: PostHeaderProps) => {
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener(
+                "mousedown",
+                handleClickOutside
+            );
+        };
+    }, []);
+
     return (
         <div className="flex items-center justify-between p-4">
             <div className="flex items-center gap-3">
@@ -38,9 +49,48 @@ const PostHeader = ({ user, createdAt }: PostHeaderProps) => {
                 </div>
             </div>
 
-            <button className="rounded-full p-2 text-zinc-400 hover:bg-zinc-900 hover:text-white">
-                <MoreHorizontal size={20} />
-            </button>
+            <div className="relative" ref={menuRef}>
+                <button
+                    onClick={() => setOpen((prev) => !prev)}
+                    className="rounded-full p-2 text-zinc-400 hover:bg-zinc-900 hover:text-white"
+                >
+                    <MoreHorizontal className="cursor-pointer" size={20} />
+                </button>
+
+                {open && (
+                    <div className="absolute cursor-pointer right-0 mt-2 w-40 overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 shadow-xl">
+                        {isOwner ? (
+                            <>
+                                <button
+                                    onClick={() => {
+                                        setOpen(false);
+                                        onEdit?.();
+                                    }}
+                                    className="flex w-full cursor-pointer items-center gap-2 px-4 py-3 text-sm text-white hover:bg-zinc-800"
+                                >
+                                    <Pencil className="cursor-pointer" size={16} />
+                                    Edit
+                                </button>
+
+                                <button
+                                    onClick={() => {
+                                        setOpen(false);
+                                        onDelete?.();
+                                    }}
+                                    className="flex w-full cursor-pointer items-center gap-2 px-4 py-3 text-sm text-red-500 hover:bg-zinc-800"
+                                >
+                                    <Trash2 size={16} />
+                                    Delete
+                                </button>
+                            </>
+                        ) : (
+                            <button className="w-full cursor-pointer px-4 py-3 text-left text-sm text-red-500 hover:bg-zinc-800">
+                                Report
+                            </button>
+                        )}
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
