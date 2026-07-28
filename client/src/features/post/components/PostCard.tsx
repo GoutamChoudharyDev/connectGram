@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
-import CommentPreview from "./CommentPreview";
 import PostActions from "./PostActions";
 import PostCaption from "./PostCaption";
 import PostHeader from "./PostHeader";
@@ -8,9 +7,14 @@ import PostMedia from "./PostMedia";
 import type { PostCardProps } from "../types/post.types";
 import { deletePostApi } from "../services/post.service";
 import { toast } from "react-toastify";
+import CommentSection from "../../comment/components/CommentSection";
+import { useState } from "react";
 
 const PostCard = ({ post }: PostCardProps) => {
     const { user } = useAuth();
+
+    // useState
+    const [showComments, setShowComments] = useState(false);
 
     // useNavigate
     const navigate = useNavigate();
@@ -41,15 +45,17 @@ const PostCard = ({ post }: PostCardProps) => {
                 <PostActions
                     userId={post.user.id}
                     postId={post.id}
-                    comments={0}
+                    isOwner={user?.id === post.user.id}
+                    onCommentClick={() => setShowComments((prev) => !prev)}
                 />
 
                 <PostCaption
                     username={post.user.username}
                     caption={post.caption}
                 />
-
-                <CommentPreview comments={0} />
+                {showComments && (
+                    <CommentSection postId={post.id} />
+                )}
             </div>
         </article>
     );

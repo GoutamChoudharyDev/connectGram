@@ -41,10 +41,11 @@ export interface PublishButtonProps {
 }
 
 export interface PostActionsProps {
-    comments: number;
+    // comments: number;
     isOwner?: boolean;
     userId: number;
     postId: number;
+    onCommentClick: () => void;
 }
 
 export interface PostCaptionProps {
