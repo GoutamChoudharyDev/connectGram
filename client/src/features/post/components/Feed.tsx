@@ -12,8 +12,6 @@ const Feed = () => {
   const fetchPosts = async () => {
     const response = await getAllPostsApi();
     setPosts(response.data.posts)
-    console.log(response.data.posts);
-
     toast.success(response.message)
   }
 

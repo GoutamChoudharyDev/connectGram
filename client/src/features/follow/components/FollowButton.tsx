@@ -48,7 +48,7 @@ const FollowButton = ({ userId }: FollowButtonProps) => {
         <button
             disabled={loading}
             onClick={handleFollow}
-            className={`rounded-lg px-4 py-2 text-sm font-medium transition ${isFollowing
+            className={`rounded-lg cursor-pointer px-4 py-2 text-sm font-medium transition ${isFollowing
                 ? "border border-zinc-700 bg-zinc-900 text-white hover:bg-zinc-800"
                 : "bg-blue-600 text-white hover:bg-blue-500"
                 } disabled:cursor-not-allowed disabled:opacity-50`}

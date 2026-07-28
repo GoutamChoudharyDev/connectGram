@@ -40,6 +40,7 @@ const PostCard = ({ post }: PostCardProps) => {
             <div className="space-y-4 p-4">
                 <PostActions
                     userId={post.user.id}
+                    postId={post.id}
                     comments={0}
                 />
 

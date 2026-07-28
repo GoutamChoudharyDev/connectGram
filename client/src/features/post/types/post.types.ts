@@ -44,9 +44,14 @@ export interface PostActionsProps {
     comments: number;
     isOwner?: boolean;
     userId: number;
+    postId: number;
 }
 
 export interface PostCaptionProps {
     username: string;
     caption: string;
+}
+
+export interface LikeButtonProps {
+    postId: number;
 }

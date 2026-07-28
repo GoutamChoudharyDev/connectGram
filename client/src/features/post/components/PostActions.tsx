@@ -1,24 +1,20 @@
 import {
-    Heart,
     MessageCircle,
     Send,
     Bookmark,
 } from "lucide-react";
 import type { PostActionsProps } from "../types/post.types";
 import FollowButton from "../../follow/components/FollowButton";
+import LikeButton from "../../like/components/LikeButton";
 
-const PostActions = ({ comments, isOwner, userId }: PostActionsProps) => {
+const PostActions = ({ comments, isOwner, userId, postId }: PostActionsProps) => {
     return (
         <div>
             {/* Action Buttons */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-5">
-                    <button className="transition hover:scale-110">
-                        <Heart
-                            size={24}
-                            className="text-zinc-200 hover:text-red-500"
-                        />
-                    </button>
+
+                    <LikeButton postId={postId} />
 
                     <button className="transition hover:scale-110">
                         <MessageCircle
