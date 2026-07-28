@@ -5,8 +5,9 @@ import {
     Bookmark,
 } from "lucide-react";
 import type { PostActionsProps } from "../types/post.types";
+import FollowButton from "../../follow/components/FollowButton";
 
-const PostActions = ({ comments, isOwner = false, isFollowing = false, onFollow }: PostActionsProps) => {
+const PostActions = ({ comments, isOwner, userId }: PostActionsProps) => {
     return (
         <div>
             {/* Action Buttons */}
@@ -44,15 +45,7 @@ const PostActions = ({ comments, isOwner = false, isFollowing = false, onFollow 
                     </button>
 
                     {!isOwner && (
-                        <button
-                            onClick={onFollow}
-                            className={`rounded-lg px-4 py-2 text-sm font-medium transition ${isFollowing
-                                ? "border border-zinc-700 bg-zinc-900 text-white hover:bg-zinc-800"
-                                : "bg-blue-600 text-white hover:bg-blue-500"
-                                }`}
-                        >
-                            {isFollowing ? "Following" : "Follow"}
-                        </button>
+                        <FollowButton userId={userId} />
                     )}
                 </div>
             </div>

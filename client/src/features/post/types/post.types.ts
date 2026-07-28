@@ -41,11 +41,9 @@ export interface PublishButtonProps {
 }
 
 export interface PostActionsProps {
-    likes: number;
     comments: number;
     isOwner?: boolean;
-    isFollowing?: boolean;
-    onFollow?: () => void;
+    userId: number;
 }
 
 export interface PostCaptionProps {

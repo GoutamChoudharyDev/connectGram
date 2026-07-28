@@ -39,7 +39,7 @@ const PostCard = ({ post }: PostCardProps) => {
 
             <div className="space-y-4 p-4">
                 <PostActions
-                    likes={10}
+                    userId={post.user.id}
                     comments={0}
                 />
 
