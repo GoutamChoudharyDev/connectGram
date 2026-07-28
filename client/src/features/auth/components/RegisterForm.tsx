@@ -212,7 +212,7 @@ const RegisterForm = () => {
                 <p className="text-center text-xs text-zinc-400">
                     Already have an account?{" "}
                     <Link
-                        to="/"
+                        to="/login"
                         className="font-semibold text-blue-500 hover:text-blue-400"
                     >
                         Sign In

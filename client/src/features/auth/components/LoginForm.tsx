@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import type { LoginFormData } from "../types/auth.types";
 import { loginApi } from "../services/auth.service";
 import { toast } from "react-toastify";
+import { useAuth } from "../../../hooks/useAuth";
 
 const LoginForm = () => {
     // use state
@@ -13,6 +14,9 @@ const LoginForm = () => {
         password: ""
     })
     const [loading, setLoading] = useState(false);
+
+    // get user
+    const { fetchCurrentUser } = useAuth();
 
     // navigate
     const navigate = useNavigate();
@@ -37,9 +41,12 @@ const LoginForm = () => {
             // api call
             const response = await loginApi(formData);
 
+            // Note: after login getting blank due to not updating user that's why we are calling fetchCurrentUser
+            await fetchCurrentUser();
+
             toast.success(response.message);
 
-            navigate("/home-page")
+            navigate("/")
         } catch (error) {
             console.error(error);
         } finally {

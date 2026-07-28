@@ -6,42 +6,39 @@ const api = axios.create({
     withCredentials: true,
 })
 
-// Extend Axios request config to include our custom _retry property
 interface RetryRequestConfig extends InternalAxiosRequestConfig {
     _retry?: boolean;
 }
 
-// Response Interceptor
 api.interceptors.response.use(
-    // Success Response
     (response) => response,
 
-    // Error Response
     async (error: AxiosError) => {
         const originalRequest = error.config as RetryRequestConfig;
 
-        // Handle only 401 errors
-        if (error.response?.status === 401 &&
+        if (
+            error.response?.status === 401 &&
             originalRequest &&
-            !originalRequest.url?.includes(`/api/auth/refresh-token`)
+            !originalRequest._retry &&
+            !originalRequest.url?.includes("/api/auth/refresh-token")
         ) {
             originalRequest._retry = true;
 
             try {
-                // Refresh the access token
                 await refreshAccessTokenApi();
 
-                // Retry the original request
+                // Retry the original request with the new access token
                 return api(originalRequest);
-            } catch (refreshError) {
-                // Redirect to login page
-                window.location.href = "/login";
+            } catch {
+                // Prevent redirect loop
+                if (window.location.pathname !== "/login") {
+                    window.location.href = "/login";
+                }
 
-                return Promise.reject(refreshError);
+                return Promise.reject(error);
             }
-
         }
-        // Any other error
+
         return Promise.reject(error);
     }
 )

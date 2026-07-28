@@ -6,17 +6,25 @@ import ProfilePage from "../features/profile/pages/ProfilePage"
 import HomePage from "../features/post/pages/HomePage"
 import CreatePostPage from "../features/post/pages/CreatePostPage"
 import EditPostPage from "../features/post/pages/EditPostPage"
+import MessagesPage from "../features/chat/pages/MessagePage"
+import ProtectedRoute from "./ProtectedRoute"
 
 const AppRoutes = () => {
     return (
         <Routes>
-            <Route path="/" element={<LoginPage />} />
+            {/* Public Routes */}
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/verify-otp" element={<VerifyEmailPage />} />
-            <Route path="/profile/:username" element={<ProfilePage />} />
-            <Route path="/Home-page" element={<HomePage />} />
-            <Route path="/post/add" element={<CreatePostPage />} />
-            <Route path="/posts/:postId/edit" element={<EditPostPage />} />
+
+            {/* Protected Routes */}
+            <Route element={<ProtectedRoute />}>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/profile/:username" element={<ProfilePage />} />
+                <Route path="/post/add" element={<CreatePostPage />} />
+                <Route path="/posts/:postId/edit" element={<EditPostPage />} />
+                <Route path="/messages" element={<MessagesPage />} />
+            </Route>
         </Routes>
     )
 }

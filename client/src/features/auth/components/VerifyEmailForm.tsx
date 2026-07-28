@@ -113,7 +113,7 @@ const VerifyEmailForm = () => {
 
             toast.success("Email verified successfully");
 
-            navigate("/"); // at login page
+            navigate("/login"); // at login page
         } catch (error) {
             console.error(error);
         } finally {
