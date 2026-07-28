@@ -5,7 +5,7 @@ import Stories from "../components/Stories";
 const HomePage = () => {
     return (
         <MainLayout>
-            <div className="mx-auto w-full max-w-xl">
+            <div className="mx-auto w-full max-w-full space-y-4 sm:max-w-2xl lg:max-w-3xl">
                 <Stories />
                 <Feed />
             </div>

@@ -28,37 +28,40 @@ const PostHeader = ({ user, createdAt, isOwner = true, onEdit, onDelete }: PostH
     }, []);
 
     return (
-        <div className="flex items-center justify-between p-4">
-            <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between gap-2 p-3 sm:p-4">
+            <div className="flex min-w-0 items-center gap-2 sm:gap-3">
                 <img
                     src={user.profilePicture}
                     alt={user.fullName}
-                    className="h-11 w-11 rounded-full object-cover"
+                    className="h-10 w-10 rounded-full object-cover sm:h-11 sm:w-11"
                 />
 
-                <div>
-                    <h3 className="text-sm font-semibold text-white">
+                <div className="min-w-0">
+                    <h3 className="truncate text-sm font-semibold text-white">
                         {user.username}
                     </h3>
 
-                    <div className="flex items-center gap-2 text-xs text-zinc-400">
-                        <span>@{user.username}</span>
-                        <span>•</span>
-                        <span>{createdAt}</span>
+                    <div className="flex items-center gap-2 overflow-hidden text-[11px] text-zinc-400 sm:text-xs">
+                        <span className="truncate">@{user.username}</span>
+                        <span className="shrink-0">•</span>
+                        <span className="shrink-0">{createdAt}</span>
                     </div>
                 </div>
             </div>
 
-            <div className="relative" ref={menuRef}>
+            <div className="relative shrink-0" ref={menuRef}>
                 <button
                     onClick={() => setOpen((prev) => !prev)}
-                    className="rounded-full p-2 text-zinc-400 hover:bg-zinc-900 hover:text-white"
+                    className="rounded-full p-2 text-zinc-400 transition hover:bg-zinc-900 hover:text-white"
                 >
-                    <MoreHorizontal className="cursor-pointer" size={20} />
+                    <MoreHorizontal
+                        className="cursor-pointer"
+                        size={20}
+                    />
                 </button>
 
                 {open && (
-                    <div className="absolute cursor-pointer right-0 mt-2 w-40 overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 shadow-xl">
+                    <div className="absolute right-0 mt-2 w-40 overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 shadow-xl">
                         {isOwner ? (
                             <>
                                 <button
@@ -68,7 +71,7 @@ const PostHeader = ({ user, createdAt, isOwner = true, onEdit, onDelete }: PostH
                                     }}
                                     className="flex w-full cursor-pointer items-center gap-2 px-4 py-3 text-sm text-white hover:bg-zinc-800"
                                 >
-                                    <Pencil className="cursor-pointer" size={16} />
+                                    <Pencil size={16} />
                                     Edit
                                 </button>
 

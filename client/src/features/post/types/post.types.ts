@@ -31,7 +31,6 @@ export interface PostHeaderProps {
     onDelete?: () => void;
 }
 
-
 export interface PostCardProps {
     post: Post;
 }
@@ -39,4 +38,17 @@ export interface PostCardProps {
 export interface PublishButtonProps {
     onClick: () => void;
     text?: string;
+}
+
+export interface PostActionsProps {
+    likes: number;
+    comments: number;
+    isOwner?: boolean;
+    isFollowing?: boolean;
+    onFollow?: () => void;
+}
+
+export interface PostCaptionProps {
+    username: string;
+    caption: string;
 }

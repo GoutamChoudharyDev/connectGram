@@ -1,7 +1,4 @@
-interface PostCaptionProps {
-    username: string;
-    caption: string;
-}
+import type { PostCaptionProps } from "../types/post.types";
 
 const PostCaption = ({
     username,

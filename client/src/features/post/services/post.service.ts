@@ -1,6 +1,5 @@
-import { AxiosError } from "axios";
 import api from "../../../services/axios";
-import { toast } from "react-toastify";
+import { handleApiError } from "../../../utils/handleApiError";
 
 // create post
 export const createPostApi = async (formData: FormData) => {
@@ -8,9 +7,7 @@ export const createPostApi = async (formData: FormData) => {
         const res = await api.post(`/api/post/`, formData);
         return res.data;
     } catch (error) {
-        const err = error as AxiosError<{ message: string }>;
-        toast.error(err.response?.data?.message || "Something went wrong");
-        throw error;
+        handleApiError(error);
     }
 };
 
@@ -20,9 +17,7 @@ export const getPostApi = async (postId: number) => {
         const res = await api.get(`/api/post/${postId}`);
         return res.data;
     } catch (error) {
-        const err = error as AxiosError<{ message: string }>;
-        toast.error(err.response?.data?.message || "Something went wrong");
-        throw error;
+        handleApiError(error);
     }
 };
 
@@ -35,9 +30,7 @@ export const updatePostApi = async (postId: number, data: {
         const res = await api.patch(`/api/post/${postId}`, data);
         return res.data;
     } catch (error) {
-        const err = error as AxiosError<{ message: string }>;
-        toast.error(err.response?.data?.message || "Something went wrong");
-        throw error;
+        handleApiError(error);
     }
 };
 
@@ -52,9 +45,7 @@ export const deletePostApi = async (postId: number) => {
         });
         return res.data;
     } catch (error) {
-        const err = error as AxiosError<{ message: string }>;
-        toast.error(err.response?.data?.message || "Something went wrong");
-        throw error;
+        handleApiError(error);
     }
 };
 
@@ -64,8 +55,6 @@ export const getAllPostsApi = async (page: number = 1, limit: number = 10) => {
         const res = await api.get(`/api/post/posts?page=${page}&limit=${limit}`);
         return res.data;
     } catch (error) {
-        const err = error as AxiosError<{ message: string }>;
-        toast.error(err.response?.data?.message || "Something went wrong");
-        throw error;
+        handleApiError(error);
     }
 };

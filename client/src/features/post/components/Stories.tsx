@@ -12,37 +12,32 @@ const stories = [
         username: "Emma",
         image: "https://i.pravatar.cc/150?img=32",
     },
-    {
-        id: 3,
-        username: "James",
-        image: "https://i.pravatar.cc/150?img=52",
-    },
-    {
-        id: 4,
-        username: "Sophia",
-        image: "https://i.pravatar.cc/150?img=24",
-    },
-    {
-        id: 5,
-        username: "Oliver",
-        image: "https://i.pravatar.cc/150?img=44",
-    },
-    {
-        id: 6,
-        username: "Lucas",
-        image: "https://i.pravatar.cc/150?img=60",
-    },
+    // {
+    //     id: 3,
+    //     username: "Alex",
+    //     image: "https://i.pravatar.cc/150?img=22",
+    // },
+    // {
+    //     id: 4,
+    //     username: "Sophia",
+    //     image: "https://i.pravatar.cc/150?img=45",
+    // },
+    // {
+    //     id: 5,
+    //     username: "Daniel",
+    //     image: "https://i.pravatar.cc/150?img=28",
+    // },
 ];
 
 const Stories = () => {
     return (
-        <section className="mb-8">
-            <div className="flex gap-5 overflow-x-auto scrollbar-hide">
+        <div className="w-full overflow-x-auto border-b border-zinc-800 scrollbar-hide">
+            <div className="flex w-max gap-4 px-4 py-4">
                 {stories.map((story) => (
                     <StoryCard key={story.id} story={story} />
                 ))}
             </div>
-        </section>
+        </div>
     );
 };
 

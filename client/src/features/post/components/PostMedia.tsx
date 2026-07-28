@@ -8,7 +8,7 @@ const PostMedia = ({ media }: PostMediaProps) => {
             <img
                 src={media[0]?.url}
                 alt="Post"
-                className="h-auto max-h-[650px] w-full object-cover transition duration-300 hover:scale-[1.02]"
+                className="h-auto max-h-[300px] w-full object-cover transition duration-300 hover:scale-[1.02] sm:max-h-[450px] md:max-h-[550px] lg:max-h-[650px]"
             />
         </div>
     );

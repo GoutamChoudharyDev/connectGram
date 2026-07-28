@@ -41,7 +41,7 @@ const MobileBottomNav = () => {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-zinc-800 bg-black lg:hidden">
-      <div className="flex items-center justify-around py-2">
+      <div className="flex items-center justify-between px-2 py-2">
         {navItems.map((item) => {
           const Icon = item.icon;
 
@@ -50,15 +50,17 @@ const MobileBottomNav = () => {
               key={item.name}
               to={item.path}
               className={({ isActive }) =>
-                `flex flex-col items-center gap-1 p-2 transition ${isActive
-                  ? "text-white"
-                  : "text-zinc-500"
+                `flex flex-1 flex-col items-center justify-center gap-1 px-1 py-2 transition ${
+                  isActive ? "text-white" : "text-zinc-500"
                 }`
               }
             >
-              <Icon size={24} />
+              <Icon
+                size={20}
+                className="sm:h-6 sm:w-6"
+              />
 
-              <span className="text-[10px]">
+              <span className="text-[9px] sm:text-[10px]">
                 {item.name}
               </span>
             </NavLink>

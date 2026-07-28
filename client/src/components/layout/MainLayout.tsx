@@ -26,7 +26,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 
                 <div className="mx-auto flex max-w-7xl">
                     {/* Feed */}
-                    <main className="flex-1 px-4 py-6 pb-24 lg:pb-6">
+                    <main className="flex-1 px-4 py-6 pb-24 lg:pt-24 lg:pb-6">
                         <div className="mx-auto max-w-2xl">
                             {children}
                         </div>

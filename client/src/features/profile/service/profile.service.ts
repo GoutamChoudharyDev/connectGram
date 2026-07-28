@@ -1,6 +1,5 @@
-import { toast } from "react-toastify";
 import api from "../../../services/axios";
-import type { AxiosError } from "axios";
+import { handleApiError } from "../../../utils/handleApiError";
 
 // Get profile API
 export const getProfileApi = async (
@@ -10,9 +9,7 @@ export const getProfileApi = async (
         const res = await api.get(`/api/profile/${username}`);
         return res.data;
     } catch (error) {
-        const err = error as AxiosError<{ message: string }>;
-        toast.error(err.response?.data?.message || "Something went wrong");
-        throw error;
+        handleApiError(error);
     }
 };
 
@@ -28,9 +25,7 @@ export const updateProfileApi = async (
         const res = await api.patch("/api/profile", data);
         return res.data;
     } catch (error) {
-        const err = error as AxiosError<{ message: string }>;
-        toast.error(err.response?.data?.message || "Something went wrong");
-        throw error;
+        handleApiError(error);
     }
 };
 
@@ -47,9 +42,7 @@ export const updateProfilePicApi = async (
         });
         return res.data;
     } catch (error) {
-        const err = error as AxiosError<{ message: string }>;
-        toast.error(err.response?.data?.message || "Something went wrong");
-        throw error;
+        handleApiError(error);
     }
 };
 
@@ -59,8 +52,6 @@ export const deleteProfilePicApi = async () => {
         const res = await api.delete("/api/profile/profile-picture");
         return res.data;
     } catch (error) {
-        const err = error as AxiosError<{ message: string }>;
-        toast.error(err.response?.data?.message || "Something went wrong");
-        throw error;
+        handleApiError(error);
     }
 };
