@@ -1,10 +1,31 @@
 import { Paperclip, SendHorizontal, Smile, Plus } from "lucide-react";
 import type { ChatInputProps } from "../types/chat.types";
+import { useState, type SubmitEvent } from "react";
+import { sendMessageApi } from "../services/chat.service";
 
 const ChatInput = ({ conversationId }: ChatInputProps) => {
+    // use state
+    const [content, setContent] = useState("");
+
+    // handle submit
+    const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            if (!content.trim()) return;
+
+            const messageResponse = await sendMessageApi(conversationId, content);
+            setContent(messageResponse.data.content);
+            setContent("");
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (
         <div className="border-t border-zinc-800 bg-zinc-950 p-4">
-            <div className="flex items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-3">
+            <form
+                onSubmit={handleSubmit}
+                className="flex items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-3">
                 <button className="text-zinc-400 transition hover:text-white">
                     <Plus size={22} />
                 </button>
@@ -14,6 +35,7 @@ const ChatInput = ({ conversationId }: ChatInputProps) => {
                 </button>
 
                 <input
+                    onChange={(e) => setContent(e.target.value)}
                     type="text"
                     placeholder="Write a message..."
                     className="flex-1 bg-transparent text-white placeholder:text-zinc-500 focus:outline-none"
@@ -23,10 +45,12 @@ const ChatInput = ({ conversationId }: ChatInputProps) => {
                     <Smile size={22} />
                 </button>
 
-                <button className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 text-white transition hover:bg-blue-700">
+                <button
+                    type="submit"
+                    className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 text-white transition hover:bg-blue-700">
                     <SendHorizontal size={20} />
                 </button>
-            </div>
+            </form>
         </div>
     );
 };

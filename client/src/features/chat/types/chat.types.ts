@@ -55,6 +55,7 @@ export interface MessageListProps {
 
 export interface MessageBubbleProps {
     message: Message;
+    currentUserId?: number;
 }
 
 export interface ChatHeaderProps {
