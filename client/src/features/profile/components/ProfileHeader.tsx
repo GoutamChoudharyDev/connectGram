@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { logoutApi } from "../../auth/services/auth.service";
 import { toast } from "react-toastify";
 import { updateProfilePicApi } from "../service/profile.service";
+import { useAuth } from "../../../hooks/useAuth";
+import { createConversationApi } from "../../chat/services/chat.service";
 
 interface ProfileHeaderProps {
     profile: Profile;
@@ -16,6 +18,12 @@ interface ProfileHeaderProps {
 const ProfileHeader = ({ profile }: ProfileHeaderProps) => {
     // useState
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    // get logged in user
+    const { user } = useAuth();
+
+    // is Own profile
+    const isOwnProfile = user?.id === profile.id;
 
     // File input ref
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -51,6 +59,18 @@ const ProfileHeader = ({ profile }: ProfileHeaderProps) => {
         }
     }
 
+    // handle message button
+    const handleMessageButton = async () => {
+        try {
+            const createConversationResponse = await createConversationApi(profile.id);
+            console.log(createConversationResponse);
+
+            navigate(`/messages`);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (
         <section className="flex flex-col gap-10 pb-10 lg:flex-row lg:items-start">
             {/* Profile Image */}
@@ -79,35 +99,51 @@ const ProfileHeader = ({ profile }: ProfileHeaderProps) => {
                         )}
                     </div>
 
-                    <EditProfileButton />
-                    <div className="relative">
-                        <button
-                            onClick={() => setIsMenuOpen((prev) => !prev)}
-                            className="rounded-lg border border-zinc-700 bg-zinc-900 p-2 transition hover:bg-zinc-800">
-                            <Settings size={20} />
-                        </button>
-
-                        {isMenuOpen && (
-                            <div className="absolute right-0 top-full z-50 mt-3 w-56 overflow-hidden rounded-xl border border-zinc-700 bg-zinc-900 shadow-2xl sm:right-0 lg:right-[-210px] right-[-50px]">
+                    {isOwnProfile ? (
+                        <>
+                            <EditProfileButton />
+                            <div className="relative">
                                 <button
-                                    onClick={() => {
-                                        setIsMenuOpen(false);
-                                        fileInputRef.current?.click();
-                                    }}
-                                    className="w-full px-4 py-3 text-left text-sm transition hover:bg-zinc-800"
-                                >
-                                    Update Profile Picture
+                                    onClick={() => setIsMenuOpen((prev) => !prev)}
+                                    className="rounded-lg border border-zinc-700 bg-zinc-900 p-2 transition hover:bg-zinc-800">
+                                    <Settings size={20} />
                                 </button>
 
-                                <button
-                                    onClick={handleLogout}
-                                    className="w-full border-t border-zinc-700 px-4 py-3 text-left text-sm text-red-500 transition hover:bg-zinc-800"
-                                >
-                                    Logout
-                                </button>
+                                {isMenuOpen && (
+                                    <div className="absolute right-0 top-full z-50 mt-3 w-56 overflow-hidden rounded-xl border border-zinc-700 bg-zinc-900 shadow-2xl sm:right-0 lg:right-[-210px] right-[-50px]">
+                                        <button
+                                            onClick={() => {
+                                                setIsMenuOpen(false);
+                                                fileInputRef.current?.click();
+                                            }}
+                                            className="w-full px-4 py-3 text-left text-sm transition hover:bg-zinc-800"
+                                        >
+                                            Update Profile Picture
+                                        </button>
+
+                                        <button
+                                            onClick={handleLogout}
+                                            className="w-full border-t border-zinc-700 px-4 py-3 text-left text-sm text-red-500 transition hover:bg-zinc-800"
+                                        >
+                                            Logout
+                                        </button>
+                                    </div>
+                                )}
                             </div>
-                        )}
-                    </div>
+                        </>
+                    ) : (
+                        <>
+                            <button className="rounded-lg cursor-pointer bg-blue-600 px-5 py-2 font-medium text-white hover:bg-blue-700">
+                                Follow
+                            </button>
+
+                            <button
+                                onClick={handleMessageButton}
+                                className="rounded-lg cursor-pointer border border-zinc-700 px-5 py-2 font-medium text-white hover:bg-zinc-800">
+                                Message
+                            </button>
+                        </>
+                    )}
                 </div>
 
                 {/* Stats */}

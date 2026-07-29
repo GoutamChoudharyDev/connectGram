@@ -1,11 +1,15 @@
 import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import type { PostHeaderProps } from "../types/post.types";
+import { useNavigate } from "react-router-dom";
 
 const PostHeader = ({ user, createdAt, isOwner = true, onEdit, onDelete }: PostHeaderProps) => {
     // useStates
     const [open, setOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
+
+    // navigate
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -32,8 +36,9 @@ const PostHeader = ({ user, createdAt, isOwner = true, onEdit, onDelete }: PostH
             <div className="flex min-w-0 items-center gap-2 sm:gap-3">
                 <img
                     src={user.profilePicture}
+                    onClick={() => navigate(`/profile/${user.username}`)}
                     alt={user.fullName}
-                    className="h-10 w-10 rounded-full object-cover sm:h-11 sm:w-11"
+                    className="h-10 cursor-pointer w-10 rounded-full object-cover sm:h-11 sm:w-11"
                 />
 
                 <div className="min-w-0">

@@ -1,13 +1,23 @@
 import { Info, Phone, Video } from "lucide-react";
 import type { ChatHeaderProps } from "../types/chat.types";
 
-const ChatHeader = ({ conversation }: ChatHeaderProps) => {
+const ChatHeader = ({ conversation, currentUserId }: ChatHeaderProps) => {
+
+    // find other participant
+    const otherParticipant = conversation.participants.find(
+        participant => participant.user.id !== currentUserId
+    )
+
+    if (!otherParticipant) return null;
+
+    const user = otherParticipant.user;
+
     return (
         <header className="flex h-16 items-center justify-between border-b border-zinc-800 bg-zinc-950 px-6">
             <div className="flex items-center gap-3">
                 <div className="relative">
                     <img
-                        src={conversation.participants[0].user.profilePicture || "https://i.pravatar.cc/150?img=12"}
+                        src={user.profilePicture || "https://i.pravatar.cc/150?img=12"}
                         alt="Profile"
                         className="h-12 w-12 rounded-full object-cover"
                     />
@@ -17,7 +27,7 @@ const ChatHeader = ({ conversation }: ChatHeaderProps) => {
 
                 <div>
                     <h2 className="text-xl font-semibold text-white">
-                        {conversation.participants[0].user.username}
+                        {user.username}
                     </h2>
 
                     <p className="text-xs font-semibold uppercase tracking-wider text-emerald-500">

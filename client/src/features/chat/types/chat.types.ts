@@ -31,6 +31,8 @@ export interface ConversationItemProps {
     conversation: Conversation;
     selected: boolean;
     onClick: () => void
+    currentUserId?: number;
+
 }
 
 export interface Message {
@@ -57,6 +59,7 @@ export interface MessageBubbleProps {
 
 export interface ChatHeaderProps {
     conversation: Conversation;
+    currentUserId?: number;
 }
 
 

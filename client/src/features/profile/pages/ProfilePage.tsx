@@ -24,7 +24,6 @@ const ProfilePage = () => {
 
                 // set respone in profile
                 setProfile(response.data);
-                console.log(response.data);
 
                 // toast.success(response.message);
             } catch (error) {

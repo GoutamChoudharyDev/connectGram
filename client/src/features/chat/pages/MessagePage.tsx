@@ -8,6 +8,7 @@ import SearchMessages from "../components/SearchMessage";
 import { getMessageApi, getMyConversationApi } from "../services/chat.service";
 import type { Conversation, Message } from "../types/chat.types";
 import EmptyChat from "../components/EmptyChat";
+import { useAuth } from "../../../hooks/useAuth";
 
 const MessagesPage = () => {
     // use states
@@ -15,6 +16,9 @@ const MessagesPage = () => {
     const [loading, setLoading] = useState(false);
     const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
+
+    // get user
+    const { user } = useAuth();
 
     // fetch Conversations
     useEffect(() => {
@@ -25,7 +29,7 @@ const MessagesPage = () => {
                 const conversationResponse = await getMyConversationApi();
                 setConversations(conversationResponse.data);
 
-                console.log("conversation respones : ", conversationResponse);
+                // console.log("conversation respones : ", conversationResponse);
             } catch (error) {
                 console.error(error);
             } finally {
@@ -44,7 +48,7 @@ const MessagesPage = () => {
             try {
                 const messageResponse = await getMessageApi(conversationId);
                 setMessages(messageResponse.data);
-                console.log("message response", messageResponse.data);
+                // console.log("message response", messageResponse.data);
             } catch (error) {
                 console.error(error);
             }
@@ -74,7 +78,10 @@ const MessagesPage = () => {
                 {/* Right Panel */}
                 {selectedConversation ? (
                     <div className="flex flex-1 flex-col">
-                        <ChatHeader conversation={selectedConversation} />
+                        <ChatHeader
+                            conversation={selectedConversation}
+                            currentUserId={user?.id}
+                        />
 
                         {/* Replace with <EmptyChat /> when no conversation is selected */}
                         <MessageList messages={messages} />

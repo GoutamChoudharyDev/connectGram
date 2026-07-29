@@ -1,3 +1,4 @@
+import { formatTime } from "../../../utils/formatTime";
 import type { MessageBubbleProps } from "../types/chat.types";
 
 const MessageBubble = ({ message }: MessageBubbleProps) => {
@@ -9,7 +10,7 @@ const MessageBubble = ({ message }: MessageBubbleProps) => {
                 </p>
 
                 <p className="mt-2 text-right text-xs text-blue-100">
-                    {message.createdAt}
+                    {formatTime(message.createdAt)}
                 </p>
             </div>
         </div>

@@ -1,7 +1,15 @@
 import type { ConversationItemProps } from "../types/chat.types";
 
-const ConversationItem = ({ conversation, selected, onClick }: ConversationItemProps) => {
-    console.log(conversation);
+const ConversationItem = ({ conversation, selected, onClick, currentUserId }: ConversationItemProps) => {
+
+    // find other participant
+    const otherParticipant = conversation.participants.find(
+        participant => participant.user.id !== currentUserId
+    )
+
+    if (!otherParticipant) return null;
+
+    const user = otherParticipant.user;
 
     return (
         <button
@@ -12,7 +20,7 @@ const ConversationItem = ({ conversation, selected, onClick }: ConversationItemP
                 }`}>
             <div className="relative flex-shrink-0">
                 <img
-                    src={conversation.participants[0].user.profilePicture || "https://i.pravatar.cc/150?img=12"}
+                    src={user.profilePicture || "https://i.pravatar.cc/150?img=12"}
                     alt="Alex Rivers"
                     className="h-14 w-14 rounded-full object-cover"
                 />
@@ -23,7 +31,7 @@ const ConversationItem = ({ conversation, selected, onClick }: ConversationItemP
             <div className="min-w-0 flex-1 text-left">
                 <div className="flex items-center justify-between">
                     <h3 className="truncate text-lg font-semibold text-white">
-                        {conversation.participants[0].user.username}
+                        {user.username}
                     </h3>
 
                     <span className="text-xs font-medium text-blue-500">
