@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 const suggestions = [
     {
@@ -22,6 +23,8 @@ const suggestions = [
 ];
 
 const RightSidebar = () => {
+    const { user } = useAuth();
+
     return (
         <aside className="hidden xl:block w-80 p-6">
             <div className="sticky top-24 space-y-6">
@@ -29,18 +32,18 @@ const RightSidebar = () => {
                 <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
                     <div className="flex items-center gap-3">
                         <img
-                            src="https://i.pravatar.cc/150?img=12"
+                            src={user?.profilePicture || "https://i.pravatar.cc/150?img=12"}
                             alt="Profile"
                             className="h-14 w-14 rounded-full object-cover"
                         />
 
                         <div>
                             <h3 className="font-semibold text-white">
-                                Alex Rivera
+                                {user?.fullName}
                             </h3>
 
                             <p className="text-sm text-zinc-400">
-                                @alexrivera
+                                @{user?.username}
                             </p>
                         </div>
                     </div>

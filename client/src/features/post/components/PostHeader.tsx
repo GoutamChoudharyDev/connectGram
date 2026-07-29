@@ -2,6 +2,7 @@ import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import type { PostHeaderProps } from "../types/post.types";
 import { useNavigate } from "react-router-dom";
+import { formatTime } from "../../../utils/formatTime";
 
 const PostHeader = ({ user, createdAt, isOwner = true, onEdit, onDelete }: PostHeaderProps) => {
     // useStates
@@ -43,13 +44,13 @@ const PostHeader = ({ user, createdAt, isOwner = true, onEdit, onDelete }: PostH
 
                 <div className="min-w-0">
                     <h3 className="truncate text-sm font-semibold text-white">
-                        {user.username}
+                        {user.fullName}
                     </h3>
 
                     <div className="flex items-center gap-2 overflow-hidden text-[11px] text-zinc-400 sm:text-xs">
                         <span className="truncate">@{user.username}</span>
                         <span className="shrink-0">•</span>
-                        <span className="shrink-0">{createdAt}</span>
+                        <span className="shrink-0">{formatTime(createdAt)}</span>
                     </div>
                 </div>
             </div>
