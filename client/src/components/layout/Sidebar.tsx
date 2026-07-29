@@ -18,7 +18,7 @@ const Sidebar = () => {
         {
             name: "Home",
             icon: Home,
-            path: "/home-page",
+            path: "/",
         },
         {
             name: "Explore",

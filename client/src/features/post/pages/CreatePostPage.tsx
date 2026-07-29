@@ -51,7 +51,7 @@ const CreatePostPage = () => {
             });
 
             // navigate
-            navigate("/home-page");
+            navigate("/");
         } catch (error) {
             console.error(error);
         }

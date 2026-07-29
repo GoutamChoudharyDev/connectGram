@@ -1,21 +1,16 @@
+import type { MessageListProps } from "../types/chat.types";
 import MessageBubble from "./MessageBubble";
-import MessageImage from "./MessageImage";
 
-const MessageList = () => {
+const MessageList = ({ messages }: MessageListProps) => {
     return (
         <div className="flex flex-1 flex-col gap-2 overflow-y-auto bg-zinc-950 px-4 py-6">
-            <MessageBubble />
-            <MessageBubble />
-            <MessageImage />
+            {messages.map((message) => (
+                <MessageBubble
+                    key={message.id}
+                    message={message}
+                />
+            ))}
         </div>
-
-        //         {messages.map((message) =>
-        //     message.type === "IMAGE" ? (
-        //         <MessageImage key={message.id} />
-        //     ) : (
-        //         <MessageBubble key={message.id} />
-        //     )
-        // )}
     );
 };
 

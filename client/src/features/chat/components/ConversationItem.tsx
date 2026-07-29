@@ -1,9 +1,18 @@
-const ConversationItem = () => {
+import type { ConversationItemProps } from "../types/chat.types";
+
+const ConversationItem = ({ conversation, selected, onClick }: ConversationItemProps) => {
+    console.log(conversation);
+
     return (
-        <button className="flex w-full items-center gap-3 border-l-2 border-blue-600 bg-zinc-900 px-4 py-4 transition hover:bg-zinc-800">
+        <button
+            onClick={onClick}
+            className={`flex w-full items-center gap-3 px-4 py-4 transition hover:bg-zinc-800 ${selected
+                ? "border-l-2 border-blue-600 bg-zinc-900"
+                : "border-l-2 border-transparent"
+                }`}>
             <div className="relative flex-shrink-0">
                 <img
-                    src="https://i.pravatar.cc/150?img=12"
+                    src={conversation.participants[0].user.profilePicture || "https://i.pravatar.cc/150?img=12"}
                     alt="Alex Rivers"
                     className="h-14 w-14 rounded-full object-cover"
                 />
@@ -14,17 +23,13 @@ const ConversationItem = () => {
             <div className="min-w-0 flex-1 text-left">
                 <div className="flex items-center justify-between">
                     <h3 className="truncate text-lg font-semibold text-white">
-                        Alex Rivers
+                        {conversation.participants[0].user.username}
                     </h3>
 
                     <span className="text-xs font-medium text-blue-500">
                         2m ago
                     </span>
                 </div>
-
-                <p className="truncate text-sm text-zinc-400">
-                    The high-fidelity mocks look incredible!
-                </p>
             </div>
         </button>
     );

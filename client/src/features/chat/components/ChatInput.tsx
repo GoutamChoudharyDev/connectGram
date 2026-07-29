@@ -1,6 +1,7 @@
 import { Paperclip, SendHorizontal, Smile, Plus } from "lucide-react";
+import type { ChatInputProps } from "../types/chat.types";
 
-const ChatInput = () => {
+const ChatInput = ({ conversationId }: ChatInputProps) => {
     return (
         <div className="border-t border-zinc-800 bg-zinc-950 p-4">
             <div className="flex items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-3">

@@ -633,61 +633,6 @@ export const markMessageAsRead = asyncHandler(async (req: Request, res: Response
     );
 })
 
-// // deleteMessageForMe controller
-// export const deleteMessageForMe = asyncHandler(async (req: Request, res: Response) => {
-//     // get authenticated user
-//     const user = req.user;
-
-//     // get message id from params
-//     const messageId = Number(req.params.messageId);
-
-//     // validate message id
-//     if (Number.isNaN(messageId)) {
-//         return sendResponse(
-//             res,
-//             400,
-//             false,
-//             "Invalid message id"
-//         )
-//     }
-
-//     // find message
-//     // (load conversation, participants, sender)
-//     const message = await messageRepository.findOne({
-//         where: { id: messageId },
-//         relations: {
-//             sender: true,
-//         }
-//     })
-
-//     // validate message exists
-//     if (!message) {
-//         return sendResponse(
-//             res,
-//             404,
-//             false,
-//             "Message not found"
-//         )
-//     }
-
-//     // check authenticated user belongs to conversation
-
-
-//     // check if already hidden
-
-//     // create hiddenMessage record
-
-//     // save hiddenMessage
-
-//     // return response
-//     return sendResponse(
-//         res,
-//         200,
-//         true,
-//         "Message unsent successfully"
-//     );
-// })
-
 // unsendMessage controller (delete from all)
 export const unsendMessage = asyncHandler(async (req: Request, res: Response) => {
     // get authenticated user
