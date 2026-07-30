@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import AuthContext from "./AuthContext";
 import type { Profile } from "../features/profile/types/profile.types";
 import { getMeApi } from "../features/auth/services/auth.service";
+import { socket } from "../socket/socket";
 
 interface AuthProviderProps {
     children: ReactNode;
@@ -16,6 +17,13 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         try {
             const response = await getMeApi();
             setUser(response.data);
+
+            // socket 
+            if (!socket.connected) {
+                socket.connect();
+            }
+
+            socket.emit("register-user", response.data.id);
         } catch (error) {
             console.error(error);
             setUser(null);

@@ -41,6 +41,9 @@ export interface Message {
     createdAt: string;
     isRead: boolean;
     isUnsent: boolean;
+    conversation: {
+        id: number
+    }
 
     sender: {
         id: number;

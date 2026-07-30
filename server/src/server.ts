@@ -19,7 +19,7 @@ const startServer = async () => {
 
         console.log("Database connected successfully");
 
-        // 3) initialize Socket io server
+        // 3.2) initialize Socket io server
         initializeSocket(server);
 
         // 2) instead of app.listen(), we use server.listen()

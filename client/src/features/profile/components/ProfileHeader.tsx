@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { updateProfilePicApi } from "../service/profile.service";
 import { useAuth } from "../../../hooks/useAuth";
 import { createConversationApi } from "../../chat/services/chat.service";
+import { socket } from "../../../socket/socket";
 
 interface ProfileHeaderProps {
     profile: Profile;
@@ -36,6 +37,10 @@ const ProfileHeader = ({ profile }: ProfileHeaderProps) => {
         try {
             const response = await logoutApi();
             toast.success(response.message);
+
+            // socket
+            socket.disconnect();
+
             navigate("/") // login
         } catch (error) {
             console.error(error);

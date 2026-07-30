@@ -9,6 +9,7 @@ import { getMessageApi, getMyConversationApi } from "../services/chat.service";
 import type { Conversation, Message } from "../types/chat.types";
 import EmptyChat from "../components/EmptyChat";
 import { useAuth } from "../../../hooks/useAuth";
+import { socket } from "../../../socket/socket";
 
 const MessagesPage = () => {
     // use states
@@ -48,13 +49,28 @@ const MessagesPage = () => {
             try {
                 const messageResponse = await getMessageApi(conversationId);
                 setMessages(messageResponse.data);
-                // console.log("message response", messageResponse.data);
             } catch (error) {
                 console.error(error);
             }
         }
 
         fetchMessages(selectedConversation.id);
+    }, [selectedConversation]);
+
+    // Listen for new messages
+    useEffect(() => {
+        const handleNewMessage = (message: Message) => {
+            // append only new message instead of every message
+            if (message.conversation.id === selectedConversation?.id) {
+                setMessages((prev) => [...prev, message]);
+            }
+        }
+
+        socket.on("new-message", handleNewMessage);
+
+        return () => {
+            socket.off("new-message", handleNewMessage);
+        }
     }, [selectedConversation]);
 
 

@@ -1,24 +1,25 @@
 import { Paperclip, SendHorizontal, Smile, Plus } from "lucide-react";
 import type { ChatInputProps } from "../types/chat.types";
 import { useState, type SubmitEvent } from "react";
-import { sendMessageApi } from "../services/chat.service";
+import { socket } from "../../../socket/socket";
 
 const ChatInput = ({ conversationId }: ChatInputProps) => {
     // use state
     const [content, setContent] = useState("");
 
     // handle submit
-    const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
-        try {
-            if (!content.trim()) return;
 
-            const messageResponse = await sendMessageApi(conversationId, content);
-            setContent(messageResponse.data.content);
-            setContent("");
-        } catch (error) {
-            console.error(error);
-        }
+        if (!content.trim()) return;
+
+        // call the send-message event 
+        socket.emit("send-message", {
+            conversationId,
+            content: content.trim(),
+        });
+
+        setContent("");
     }
 
     return (
@@ -35,6 +36,8 @@ const ChatInput = ({ conversationId }: ChatInputProps) => {
                 </button>
 
                 <input
+                    name="content"
+                    value={content}
                     onChange={(e) => setContent(e.target.value)}
                     type="text"
                     placeholder="Write a message..."
