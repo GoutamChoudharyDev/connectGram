@@ -17,11 +17,12 @@ const MessagesPage = () => {
     const [loading, setLoading] = useState(false);
     const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
+    const [onlineUsers, setOnlineUsers] = useState<number[]>([]);
 
     // get user
     const { user } = useAuth();
 
-    // fetch Conversations
+    // fetch Conversations + Online/Offline status
     useEffect(() => {
         const fetchConversations = async () => {
             try {
@@ -29,8 +30,6 @@ const MessagesPage = () => {
 
                 const conversationResponse = await getMyConversationApi();
                 setConversations(conversationResponse.data);
-
-                // console.log("conversation respones : ", conversationResponse);
             } catch (error) {
                 console.error(error);
             } finally {
@@ -39,9 +38,31 @@ const MessagesPage = () => {
         }
 
         fetchConversations();
-    }, [])
 
-    // fetch Messages
+        // Online/Offline status
+        const handleUserOnline = (userId: number) => {
+            setOnlineUsers((prev) =>
+                prev.includes(userId) ? prev : [...prev, userId]
+            )
+        }
+
+        const handleUserOffline = (userId: number) => {
+            setOnlineUsers((prev) =>
+                prev.filter((id) => id !== userId)
+            )
+        }
+
+        socket.on("user-online", handleUserOnline);
+        socket.on("user-offline", handleUserOffline);
+
+        return () => {
+            socket.off("user-online", handleUserOnline);
+            socket.off("user-offline", handleUserOffline);
+        }
+
+    }, []);
+
+    // fetch Messages + Listen for new messages
     useEffect(() => {
         if (!selectedConversation) return;
 
@@ -55,10 +76,8 @@ const MessagesPage = () => {
         }
 
         fetchMessages(selectedConversation.id);
-    }, [selectedConversation]);
 
-    // Listen for new messages
-    useEffect(() => {
+        // Listen for new messages
         const handleNewMessage = (message: Message) => {
             // append only new message instead of every message
             if (message.conversation.id === selectedConversation?.id) {
@@ -73,6 +92,7 @@ const MessagesPage = () => {
         }
     }, [selectedConversation]);
 
+    // 
 
     return (
         <MainLayout>
@@ -87,6 +107,7 @@ const MessagesPage = () => {
                             conversations={conversations}
                             selectedConversation={selectedConversation}
                             onSelect={setSelectedConversation}
+                            onlineUsers={onlineUsers}
                         />
                     }
                 </div>
@@ -97,6 +118,7 @@ const MessagesPage = () => {
                         <ChatHeader
                             conversation={selectedConversation}
                             currentUserId={user?.id}
+                            onlineUsers={onlineUsers}
                         />
 
                         {/* Replace with <EmptyChat /> when no conversation is selected */}

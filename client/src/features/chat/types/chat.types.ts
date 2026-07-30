@@ -25,6 +25,7 @@ export interface ConversationListProps {
     conversations: Conversation[];
     selectedConversation: Conversation | null;
     onSelect: Dispatch<SetStateAction<Conversation | null>>;
+    onlineUsers: number[];
 }
 
 export interface ConversationItemProps {
@@ -32,6 +33,7 @@ export interface ConversationItemProps {
     selected: boolean;
     onClick: () => void
     currentUserId?: number;
+    onlineUsers: number[];
 
 }
 
@@ -64,6 +66,7 @@ export interface MessageBubbleProps {
 export interface ChatHeaderProps {
     conversation: Conversation;
     currentUserId?: number;
+    onlineUsers: number[];
 }
 
 

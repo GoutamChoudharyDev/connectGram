@@ -1,7 +1,7 @@
 import { Info, Phone, Video } from "lucide-react";
 import type { ChatHeaderProps } from "../types/chat.types";
 
-const ChatHeader = ({ conversation, currentUserId }: ChatHeaderProps) => {
+const ChatHeader = ({ conversation, currentUserId, onlineUsers }: ChatHeaderProps) => {
 
     // find other participant
     const otherParticipant = conversation.participants.find(
@@ -11,6 +11,8 @@ const ChatHeader = ({ conversation, currentUserId }: ChatHeaderProps) => {
     if (!otherParticipant) return null;
 
     const user = otherParticipant.user;
+
+    const isOnline = onlineUsers.includes(otherParticipant.user.id)
 
     return (
         <header className="flex h-16 items-center justify-between border-b border-zinc-800 bg-zinc-950 px-6">
@@ -22,17 +24,24 @@ const ChatHeader = ({ conversation, currentUserId }: ChatHeaderProps) => {
                         className="h-12 w-12 rounded-full object-cover"
                     />
 
-                    <span className="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-zinc-950 bg-emerald-500" />
+                    {/* online/offline status  */}
+                    <span
+                        className={`absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-zinc-900 
+                        ${isOnline ? "bg-emerald-500" : "bg-zinc-500"
+                            }`}
+                    />
                 </div>
 
                 <div>
                     <h2 className="text-xl font-semibold text-white">
                         {user.username}
                     </h2>
+                    {isOnline && (
+                        <p className="text-xs font-semibold uppercase tracking-wider text-emerald-500">
+                            Online
+                        </p>
+                    )}
 
-                    <p className="text-xs font-semibold uppercase tracking-wider text-emerald-500">
-                        Online
-                    </p>
                 </div>
             </div>
 

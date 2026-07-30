@@ -30,7 +30,7 @@ export const initializeSocket = (server: HttpServer) => {
             onlineUsers.set(userId, socket.id);
             socketUsers.set(socket.id, userId);
 
-            console.log(`User ${userId} registered`);
+            io.emit("user-online", userId);
         });
 
         // Listen for send-message
@@ -184,8 +184,7 @@ export const initializeSocket = (server: HttpServer) => {
                 socketUsers.delete(socket.id);
             }
 
-            console.log(`User disconnected: ${socket.id}`);
-
+            io.emit("user-offline", userId);
         })
     })
 

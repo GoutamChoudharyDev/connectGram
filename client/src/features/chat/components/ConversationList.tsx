@@ -2,7 +2,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import type { ConversationListProps } from "../types/chat.types";
 import ConversationItem from "./ConversationItem";
 
-const ConversationList = ({ conversations, selectedConversation, onSelect }: ConversationListProps) => {
+const ConversationList = ({ conversations, selectedConversation, onSelect, onlineUsers }: ConversationListProps) => {
     // get user
     const { user } = useAuth();
 
@@ -15,6 +15,7 @@ const ConversationList = ({ conversations, selectedConversation, onSelect }: Con
                     selected={selectedConversation?.id === conversation.id}
                     onClick={() => onSelect(conversation)}
                     currentUserId={user?.id}
+                    onlineUsers={onlineUsers}
                 />
             ))}
         </div>
