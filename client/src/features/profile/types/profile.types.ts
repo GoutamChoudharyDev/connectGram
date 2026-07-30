@@ -1,3 +1,5 @@
+import type { Post } from "../../post/types/post.types";
+
 export interface Profile {
     id: number;
     username: string;
@@ -7,4 +9,8 @@ export interface Profile {
     website: string | null;
     isVerified: boolean;
     createdAt: string;
+}
+
+export interface ProfilePostCardProp {
+    post: Post;
 }
