@@ -140,6 +140,64 @@ export const getPost = asyncHandler(async (req: Request, res: Response) => {
     )
 })
 
+// get my post controller
+export const getMyPosts = asyncHandler(async (req: Request, res: Response) => {
+    // get username from params
+    const { username } = req.params;
+    console.log(username);
+
+
+    if (!username) {
+        return sendResponse(
+            res,
+            400,
+            false,
+            "Invalid username",
+        )
+    }
+
+    if (typeof username !== "string") {
+        return sendResponse(
+            res,
+            400,
+            false,
+            "Invalid username"
+        );
+    }
+
+    const myPosts = await postRepository.find({
+        where: {
+            user: {
+                username
+            }
+        },
+        relations: {
+            user: true,
+            media: true,
+        },
+        order: {
+            createdAt: "DESC",
+        },
+    })
+
+    if (myPosts.length === 0) {
+        return sendResponse(
+            res,
+            404,
+            false,
+            "Posts not found"
+        );
+    }
+
+    return sendResponse(
+        res,
+        200,
+        true,
+        "Your Posts fetched successfully",
+        myPosts
+    )
+})
+
 // get All post controller
 export const getAllPosts = asyncHandler(async (req: Request, res: Response) => {
     // get page & limit

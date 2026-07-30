@@ -21,6 +21,16 @@ export const getPostApi = async (postId: number) => {
     }
 };
 
+// get my posts
+export const getMyPostsApi = async (username: string) => {
+    try {
+        const res = await api.get(`/api/post/my/${username}`);
+        return res.data;
+    } catch (error) {
+        handleApiError(error);
+    }
+};
+
 // update post
 export const updatePostApi = async (postId: number, data: {
     caption: string;
