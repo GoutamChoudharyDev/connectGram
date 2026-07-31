@@ -1,32 +1,4 @@
-// const HeroSection = () => {
-//   return (
-//     <section className="hidden h-full w-full items-center justify-center px-6 lg:flex">
-//       <div className="max-w-md">
-//         {/* Heading */}
-//         <h1 className="text-5xl font-extrabold leading-tight text-white">
-//           Connecting
-//           <br />
-//           <span className="text-blue-600">People,</span>
-//           <br />
-//           Creating
-//           <br />
-//           <span className="text-blue-600">Moments.</span>
-//         </h1>
-
 import type { ReactNode } from "react";
-
-//         {/* Description */}
-//         <p className="mt-5 max-w-sm text-base leading-7 text-zinc-400">
-//           Share your world, discover new people, and create unforgettable moments with ConnectGram.
-//         </p>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default HeroSection;
-
-
 
 interface HeroSectionProps {
     heading: ReactNode;
@@ -35,15 +7,15 @@ interface HeroSectionProps {
 
 const HeroSection = ({ heading, description }: HeroSectionProps) => {
     return (
-        <section className="hidden h-full w-full items-center justify-center px-6 lg:flex">
-            <div className="max-w-md">
+        <section className="hidden h-full w-full items-center justify-center px-8 lg:flex xl:px-12">
+            <div className="max-w-lg">
                 {/* Heading */}
-                <h1 className="text-5xl font-extrabold leading-tight text-white">
+                <h1 className="text-5xl font-extrabold leading-tight tracking-tight text-white xl:text-6xl">
                     {heading}
                 </h1>
 
                 {/* Description */}
-                <p className="mt-5 max-w-sm text-base leading-7 text-zinc-400">
+                <p className="mt-6 max-w-md text-base leading-8 text-zinc-400 xl:text-lg">
                     {description}
                 </p>
             </div>

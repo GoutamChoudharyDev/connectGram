@@ -7,11 +7,12 @@ import Sidebar from "./Sidebar";
 
 interface MainLayoutProps {
     children: ReactNode;
+    fullWidth?: boolean;
 }
 
-const MainLayout = ({ children }: MainLayoutProps) => {
+const MainLayout = ({ children, fullWidth = false }: MainLayoutProps) => {
     return (
-        <div className="min-h-screen bg-black text-white">
+        <div className="min-h-[100dvh] bg-black text-white">
             {/* Desktop Sidebar */}
             <Sidebar />
 
@@ -25,9 +26,13 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                 <MobileNavbar />
 
                 <div className="mx-auto flex max-w-7xl">
-                    {/* Feed */}
-                    <main className="flex-1 px-4 py-6 pb-24 lg:pt-24 lg:pb-6">
-                        <div className="mx-auto max-w-2xl">
+                    {/* Main Content */}
+                    <main
+                        className={`flex-1 px-3 pt-4 sm:px-4 sm:pt-6 lg:px-6 lg:pt-24 
+                            ${fullWidth ? "pb-0" : "pb-24 lg:pb-6"}`
+                        }
+                    >
+                        <div className={fullWidth ? "w-full" : "mx-auto max-w-2xl"}>
                             {children}
                         </div>
                     </main>

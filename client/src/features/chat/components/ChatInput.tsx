@@ -21,37 +21,69 @@ const ChatInput = ({ conversationId }: ChatInputProps) => {
 
         setContent("");
     }
-
     return (
-        <div className="border-t border-zinc-800 bg-zinc-950 p-4">
+        <div className="shrink-0 border-t border-zinc-800 bg-zinc-950 p-2 sm:p-4">
             <form
                 onSubmit={handleSubmit}
-                className="flex items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-3">
-                <button className="text-zinc-400 transition hover:text-white">
-                    <Plus size={22} />
+                className="flex items-center gap-2 rounded-2xl border border-zinc-800 bg-zinc-900 px-3 py-2 sm:gap-3 sm:px-4 sm:py-3"
+            >
+                {/* Add */}
+                <button
+                    type="button"
+                    className="shrink-0 text-zinc-400 transition hover:text-white"
+                >
+                    <Plus
+                        size={20}
+                        className="sm:h-[22px] sm:w-[22px]"
+                    />
                 </button>
 
-                <button className="text-zinc-400 transition hover:text-white">
-                    <Paperclip size={20} />
+                {/* Attachment */}
+                <button
+                    type="button"
+                    className="hidden shrink-0 text-zinc-400 transition hover:text-white sm:block"
+                >
+                    <Paperclip
+                        size={20}
+                    />
                 </button>
 
+                {/* Input */}
                 <input
                     name="content"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     type="text"
                     placeholder="Write a message..."
-                    className="flex-1 bg-transparent text-white placeholder:text-zinc-500 focus:outline-none"
+                    className=" min-w-0 flex-1 bg-transparent text-sm text-white
+                        placeholder:text-zinc-500 focus:outline-none sm:text-base
+                    "
                 />
 
-                <button className="text-zinc-400 transition hover:text-white">
-                    <Smile size={22} />
+                {/* Emoji */}
+                <button
+                    type="button"
+                    className="shrink-0 text-zinc-400 transition hover:text-white"
+                >
+                    <Smile
+                        size={20}
+                        className="sm:h-[22px] sm:w-[22px]"
+                    />
                 </button>
 
+                {/* Send */}
                 <button
                     type="submit"
-                    className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 text-white transition hover:bg-blue-700">
-                    <SendHorizontal size={20} />
+                    className=" flex shrink-0 items-center justify-center rounded-full
+                        bg-blue-600 h-9 w-9
+                        text-white transition
+                        hover:bg-blue-700 sm:h-11 sm:w-11
+                    "
+                >
+                    <SendHorizontal
+                        size={18}
+                        className="sm:h-5 sm:w-5"
+                    />
                 </button>
             </form>
         </div>

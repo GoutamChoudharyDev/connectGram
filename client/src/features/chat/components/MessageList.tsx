@@ -17,17 +17,21 @@ const MessageList = ({ messages }: MessageListProps) => {
         });
     }, [messages])
 
-
     return (
-        <div className="flex flex-1 flex-col gap-2 overflow-y-auto bg-zinc-950 px-4 py-6">
-            {messages.map((message) => (
-                <MessageBubble
-                    key={message.id}
-                    message={message}
-                    currentUserId={user?.id}
-                />
-            ))}
+        <div
+            className="min-h-0 flex-1 overflow-y-auto bg-zinc-950 px-2 py-3 sm:px-4 sm:py-6"
+        >
+            <div className="flex flex-col gap-2">
+                {messages.map((message) => (
+                    <MessageBubble
+                        key={message.id}
+                        message={message}
+                        currentUserId={user?.id}
+                    />
+                ))}
+            </div>
 
+            {/* Auto scroll target */}
             <div ref={bottomRef} />
         </div>
     );

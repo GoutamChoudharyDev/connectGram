@@ -24,7 +24,6 @@ const suggestions = [
 
 const RightSidebar = () => {
     const { user } = useAuth();
-
     return (
         <aside className="hidden xl:block w-80 p-6">
             <div className="sticky top-24 space-y-6">
@@ -102,7 +101,7 @@ const RightSidebar = () => {
                 </div>
             </div>
         </aside>
-    );
+    );    
 };
 
 export default RightSidebar;

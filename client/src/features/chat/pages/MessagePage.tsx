@@ -115,43 +115,72 @@ const MessagesPage = () => {
     });
 
     return (
-        <MainLayout>
-            <div className="flex h-[calc(100vh-4rem)] overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950">
+        <MainLayout fullWidth>
+            <div className="flex h-[calc(100dvh-8rem)] overflow-hidden bg-zinc-950 md:h-[calc(100dvh-7rem)] md:rounded-xl md:border md:border-zinc-800">
                 {/* Left Panel */}
-                <div className="w-80 border-r border-zinc-800">
+                <aside
+                    className={`
+                        ${selectedConversation
+                            ? "hidden md:flex"
+                            : "flex"
+                        }
+                    w-full flex-col border-r border-zinc-800
+                    md:w-80 lg:w-96
+                `}
+                >
                     <SearchMessages
                         search={search}
                         setSearch={setSearch}
                     />
-                    {loading ? (
-                        <p className="p-4 text-center text-zinc-400">Loading...</p>
-                    ) :
-                        <ConversationList
-                            conversations={filteredConversations}
-                            selectedConversation={selectedConversation}
-                            onSelect={setSelectedConversation}
-                            onlineUsers={onlineUsers}
-                        />
-                    }
-                </div>
+
+                    <div className="min-h-0 flex-1 overflow-y-auto">
+                        {loading ? (
+                            <p className="p-4 text-center text-zinc-400">
+                                Loading...
+                            </p>
+                        ) : (
+                            <ConversationList
+                                conversations={filteredConversations}
+                                selectedConversation={selectedConversation}
+                                onSelect={setSelectedConversation}
+                                onlineUsers={onlineUsers}
+                            />
+                        )}
+                    </div>
+                </aside>
 
                 {/* Right Panel */}
-                {selectedConversation ? (
-                    <div className="flex flex-1 flex-col">
-                        <ChatHeader
-                            conversation={selectedConversation}
-                            currentUserId={user?.id}
-                            onlineUsers={onlineUsers}
-                        />
+                <section
+                    className={`
+                    ${selectedConversation
+                            ? "flex"
+                            : "hidden md:flex"
+                        }
+                    min-h-0 flex-1 flex-col overflow-hidden
+                `}
+                >
+                    {selectedConversation ? (
+                        <>
+                            <ChatHeader
+                                conversation={selectedConversation}
+                                currentUserId={user?.id}
+                                onlineUsers={onlineUsers}
+                            />
 
-                        {/* Replace with <EmptyChat /> when no conversation is selected */}
-                        <MessageList messages={messages} />
+                            <MessageList
+                                messages={messages}
+                            />
 
-                        <ChatInput conversationId={selectedConversation.id} />
-                    </div>
-                ) : (
-                    <EmptyChat />
-                )}
+                            <ChatInput
+                                conversationId={
+                                    selectedConversation.id
+                                }
+                            />
+                        </>
+                    ) : (
+                        <EmptyChat />
+                    )}
+                </section>
             </div>
         </MainLayout>
     );

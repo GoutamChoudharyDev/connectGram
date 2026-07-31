@@ -15,47 +15,55 @@ const ChatHeader = ({ conversation, currentUserId, onlineUsers }: ChatHeaderProp
     const isOnline = onlineUsers.includes(otherParticipant.user.id)
 
     return (
-        <header className="flex h-16 items-center justify-between border-b border-zinc-800 bg-zinc-950 px-6">
-            <div className="flex items-center gap-3">
-                <div className="relative">
+        <header className="shrink-0 flex h-14 items-center justify-between border-b border-zinc-800 bg-zinc-950 px-3 sm:h-16 sm:px-5">
+            {/* User */}
+            <div className="flex min-w-0 flex-1 items-center gap-3">
+                <div className="relative shrink-0">
                     <img
-                        src={user.profilePicture || "https://i.pravatar.cc/150?img=12"}
-                        alt="Profile"
-                        className="h-12 w-12 rounded-full object-cover"
+                        src={
+                            user.profilePicture ||
+                            "https://i.pravatar.cc/150?img=12"
+                        }
+                        alt={user.username}
+                        className="h-10 w-10 rounded-full object-cover sm:h-12 sm:w-12"
                     />
 
-                    {/* online/offline status  */}
                     <span
-                        className={`absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-zinc-900 
-                        ${isOnline ? "bg-emerald-500" : "bg-zinc-500"
+                        className={`absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-zinc-900 ${isOnline
+                                ? "bg-emerald-500"
+                                : "bg-zinc-500"
                             }`}
                     />
                 </div>
 
-                <div>
-                    <h2 className="text-xl font-semibold text-white">
+                <div className="min-w-0">
+                    <h2 className="truncate text-sm font-semibold text-white sm:text-lg">
                         {user.username}
                     </h2>
-                    {isOnline && (
-                        <p className="text-xs font-semibold uppercase tracking-wider text-emerald-500">
-                            Online
-                        </p>
-                    )}
 
+                    <p
+                        className={`truncate text-[11px] ${isOnline
+                                ? "text-emerald-500"
+                                : "text-zinc-500"
+                            }`}
+                    >
+                        {isOnline ? "Online" : "Offline"}
+                    </p>
                 </div>
             </div>
 
-            <div className="flex items-center divide-x divide-zinc-800">
-                <button className="px-5 py-3 text-zinc-400 transition hover:text-white">
-                    <Phone size={20} />
+            {/* Actions */}
+            <div className="ml-3 flex shrink-0 items-center">
+                <button className="rounded-lg p-2 text-zinc-400 transition hover:bg-zinc-900 hover:text-white sm:p-3">
+                    <Phone className="h-5 w-5" />
                 </button>
 
-                <button className="px-5 py-3 text-zinc-400 transition hover:text-white">
-                    <Video size={20} />
+                <button className="rounded-lg p-2 text-zinc-400 transition hover:bg-zinc-900 hover:text-white sm:p-3">
+                    <Video className="h-5 w-5" />
                 </button>
 
-                <button className="px-5 py-3 text-zinc-400 transition hover:text-white">
-                    <Info size={20} />
+                <button className="rounded-lg p-2 text-zinc-400 transition hover:bg-zinc-900 hover:text-white sm:p-3">
+                    <Info className="h-5 w-5" />
                 </button>
             </div>
         </header>
@@ -63,4 +71,3 @@ const ChatHeader = ({ conversation, currentUserId, onlineUsers }: ChatHeaderProp
 };
 
 export default ChatHeader;
-

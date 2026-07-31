@@ -7,7 +7,7 @@ const ConversationList = ({ conversations, selectedConversation, onSelect, onlin
     const { user } = useAuth();
 
     return (
-        <div className="w-full overflow-y-auto">
+        <div className="h-full w-full overflow-y-auto">
             {conversations.map((conversation) => (
                 <ConversationItem
                     key={conversation.id}

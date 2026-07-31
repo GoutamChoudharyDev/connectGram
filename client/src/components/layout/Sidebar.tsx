@@ -46,13 +46,14 @@ const Sidebar = () => {
     const navigate = useNavigate();
 
     return (
-        <aside className="fixed left-0 top-0 hidden h-screen w-64 border-r border-zinc-800 bg-black lg:flex lg:flex-col">
+        <aside className="fixed left-0 top-0 hidden h-[100dvh] w-64 border-r border-zinc-800 bg-black lg:flex lg:flex-col xl:w-72">
             {/* Logo */}
             <div className="border-b border-zinc-800 px-6 py-7">
-                <Link to="/" className="inline-block">
+                <Link to="/home-page" className="inline-block">
                     <h1 className="text-3xl font-bold tracking-tight">
                         ConnectGram
                     </h1>
+
                     <p className="mt-1 text-xs uppercase tracking-[0.3em] text-zinc-500">
                         Premium Network
                     </p>
@@ -60,7 +61,7 @@ const Sidebar = () => {
             </div>
 
             {/* Navigation */}
-            <nav className="flex-1 px-4 py-6">
+            <nav className="flex-1 overflow-y-auto px-4 py-6">
                 <ul className="space-y-2">
                     {menuItems.map((item) => {
                         const Icon = item.icon;
@@ -70,14 +71,16 @@ const Sidebar = () => {
                                 <NavLink
                                     to={item.path}
                                     className={({ isActive }) =>
-                                        `flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive
+                                        `flex items-center gap-3 rounded-xl px-4 py-3 transition-colors duration-200 ${isActive
                                             ? "bg-blue-600 text-white"
                                             : "text-zinc-400 hover:bg-zinc-900 hover:text-white"
                                         }`
                                     }
                                 >
                                     <Icon size={20} />
-                                    <span>{item.name}</span>
+                                    <span className="font-medium">
+                                        {item.name}
+                                    </span>
                                 </NavLink>
                             </li>
                         );
@@ -89,7 +92,8 @@ const Sidebar = () => {
             <div className="px-4">
                 <button
                     onClick={() => navigate("/post/add")}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 font-medium transition hover:bg-blue-500">
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 font-medium transition-colors hover:bg-blue-500"
+                >
                     <Plus size={18} />
                     Create Post
                 </button>
@@ -97,29 +101,33 @@ const Sidebar = () => {
 
             {/* User */}
             <div className="m-4 mt-6 flex items-center justify-between rounded-xl border border-zinc-800 bg-zinc-900 p-3">
-                <div className="flex items-center gap-3">
+                <div className="flex min-w-0 items-center gap-3">
                     <img
-                        src={user?.profilePicture || "https://i.pravatar.cc/220"}
+                        src={
+                            user?.profilePicture ||
+                            "https://i.pravatar.cc/220"
+                        }
                         alt="User"
                         className="h-11 w-11 rounded-full object-cover"
                     />
 
-                    <div>
-                        <h3 className="text-sm font-semibold">
+                    <div className="min-w-0">
+                        <h3 className="truncate text-sm font-semibold">
                             {user?.fullName}
                         </h3>
-                        <p className="text-xs text-zinc-400">
+
+                        <p className="truncate text-xs text-zinc-400">
                             @{user?.username}
                         </p>
                     </div>
                 </div>
 
-                <button className="text-zinc-400 transition hover:text-white">
+                <button className="shrink-0 text-zinc-400 transition-colors hover:text-white">
                     <Settings size={18} />
                 </button>
             </div>
         </aside>
-    );
+    );    
 };
 
 export default Sidebar;

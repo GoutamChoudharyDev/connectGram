@@ -14,7 +14,7 @@ const MobileBottomNav = () => {
   const navItems = [
     {
       name: "Home",
-      path: "/home-page",
+      path: "/",
       icon: Home,
     },
     {
@@ -40,8 +40,13 @@ const MobileBottomNav = () => {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-zinc-800 bg-black lg:hidden">
-      <div className="flex items-center justify-between px-2 py-2">
+    <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-zinc-800/80 bg-black/95 backdrop-blur-lg lg:hidden">
+      <div
+        className="flex items-center justify-around px-2 pt-2"
+        style={{
+          paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))",
+        }}
+      >
         {navItems.map((item) => {
           const Icon = item.icon;
 
@@ -50,17 +55,15 @@ const MobileBottomNav = () => {
               key={item.name}
               to={item.path}
               className={({ isActive }) =>
-                `flex flex-1 flex-col items-center justify-center gap-1 px-1 py-2 transition ${
-                  isActive ? "text-white" : "text-zinc-500"
+                `flex min-h-[48px] flex-1 flex-col items-center justify-center gap-1 rounded-lg py-1 transition-colors duration-200 ${isActive
+                  ? "text-white"
+                  : "text-zinc-500 hover:text-zinc-300"
                 }`
               }
             >
-              <Icon
-                size={20}
-                className="sm:h-6 sm:w-6"
-              />
+              <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
 
-              <span className="text-[9px] sm:text-[10px]">
+              <span className="text-[10px] font-medium">
                 {item.name}
               </span>
             </NavLink>
