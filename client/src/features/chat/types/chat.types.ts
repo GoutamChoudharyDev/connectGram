@@ -69,7 +69,11 @@ export interface ChatHeaderProps {
     onlineUsers: number[];
 }
 
-
 export interface ChatInputProps {
     conversationId: number;
+}
+
+export interface SearchMessagesProps {
+    search: string;
+    setSearch: Dispatch<SetStateAction<string>>;
 }

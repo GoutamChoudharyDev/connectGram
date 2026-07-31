@@ -18,6 +18,7 @@ const MessagesPage = () => {
     const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
     const [onlineUsers, setOnlineUsers] = useState<number[]>([]);
+    const [search, setSearch] = useState("");
 
     // get user
     const { user } = useAuth();
@@ -92,19 +93,41 @@ const MessagesPage = () => {
         }
     }, [selectedConversation]);
 
-    // 
+    // filter conversation
+    const filteredConversations = conversations.filter((conversation) => {
+        // Find the other participant
+        const otherParticipant = conversation.participants.find(
+            (participant) => participant.user.id !== user?.id
+        );
+
+        // If no other participant, don't show it
+        if (!otherParticipant) return false;
+
+        // Search by username or full name
+        return (
+            otherParticipant.user.username
+                .toLowerCase()
+                .includes(search.toLowerCase()) ||
+            otherParticipant.user.fullName
+                .toLowerCase()
+                .includes(search.toLowerCase())
+        );
+    });
 
     return (
         <MainLayout>
             <div className="flex h-[calc(100vh-4rem)] overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950">
                 {/* Left Panel */}
                 <div className="w-80 border-r border-zinc-800">
-                    <SearchMessages />
+                    <SearchMessages
+                        search={search}
+                        setSearch={setSearch}
+                    />
                     {loading ? (
                         <p className="p-4 text-center text-zinc-400">Loading...</p>
                     ) :
                         <ConversationList
-                            conversations={conversations}
+                            conversations={filteredConversations}
                             selectedConversation={selectedConversation}
                             onSelect={setSelectedConversation}
                             onlineUsers={onlineUsers}
