@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { isAuth } from "../../middleware/auth.middleware.js";
-import { createConversation, getConversationById, getMessages, getMyConversations, markMessageAsRead, unsendMessage } from "./chat.controller.js";
+import { createConversation, getConversationById, getMessages, getMyConversations, markMessageAsRead } from "./chat.controller.js";
 
 const chatRouter = Router();
 
@@ -13,6 +13,6 @@ chatRouter.get("/conversations/:conversationId", isAuth, getConversationById);
 // chatRouter.post("/conversations/:conversationId/messages", isAuth, sendMessage);
 chatRouter.get("/conversations/:conversationId/messages", isAuth, getMessages);
 chatRouter.patch("/messages/:messageId/read", isAuth, markMessageAsRead);
-chatRouter.patch("/messages/:messageId/unsend", isAuth, unsendMessage);//(delete from all)
+// chatRouter.patch("/messages/:messageId/unsend", isAuth, unsendMessage);//(delete from all)
 
 export default chatRouter;

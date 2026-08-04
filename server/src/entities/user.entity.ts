@@ -56,6 +56,7 @@ export class User {
     })
     website!: string | null;
 
+    // @OneToMany relationship -> tell typeORM how one User is related to many records
     @OneToMany(() => EmailVerification, (verification) => verification.user)
     emailVerifications!: Relation<EmailVerification[]>;
 

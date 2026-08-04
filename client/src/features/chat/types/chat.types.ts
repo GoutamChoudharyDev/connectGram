@@ -56,11 +56,15 @@ export interface Message {
 
 export interface MessageListProps {
     messages: Message[];
+    selectedMessageId: number | null;
+    onSelectMessageId: Dispatch<SetStateAction<number | null>>;
 }
 
 export interface MessageBubbleProps {
     message: Message;
     currentUserId?: number;
+    selectedMessageId: number | null;
+    onSelectMessageId: Dispatch<SetStateAction<number | null>>;
 }
 
 export interface ChatHeaderProps {

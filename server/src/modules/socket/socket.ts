@@ -149,10 +149,6 @@ export const initializeSocket = (server: HttpServer) => {
                         return;
                     }
 
-                    // // // update conversation timestamp
-                    // existingConversation.updatedAt = new Date();
-                    // await conversationRepository.save(existingConversation);
-
                     // find receiver
                     const receiver = existingConversation?.participants.find(
                         (participant) => participant.user.id !== senderId
@@ -173,7 +169,77 @@ export const initializeSocket = (server: HttpServer) => {
                 } catch (error) {
                     console.error(error);
                 }
+            }
+        )
+
+        // Listen for unsend-message
+        socket.on("unsend-message", async ({ messageId }) => {
+            if (!messageId) return;
+
+            // get sender form socket
+            const senderId = socketUsers.get(socket.id);
+
+            if (!senderId) {
+                socket.emit("error-message", "Unautherized");
+                return;
+            }
+
+            // Validate messageId
+            if (Number.isNaN(messageId)) {
+                socket.emit("error-message", "Invalid message id");
+                return;
+            }
+
+            // Find message
+            const message = await messageRepository.findOne({
+                where: {
+                    id: messageId
+                },
+                relations: {
+                    sender: true,
+                    conversation: {
+                        participants: {
+                            user: true
+                        }
+                    }
+                }
             })
+
+            // Check message exists
+            if (!message) {
+                socket.emit("error-message", "Message not found");
+                return;
+            }
+
+            // Verify the sender owns the message
+            if (message.sender.id !== senderId) {
+                socket.emit("error-message", "You doesn't have access to delete this message");
+                return;
+            }
+
+            // Delete message from database
+            await messageRepository.remove(message);
+
+            const receiver = message.conversation.participants.find(
+                (participant) => participant.user.id !== senderId
+            );
+
+            const receiverSocketId = receiver
+                ? onlineUsers.get(receiver.user.id)
+                : undefined;
+
+            // 6. Notify both clients
+            socket.emit("message-unsent", {
+                messageId,
+            });
+
+            if (receiverSocketId) {
+                io.to(receiverSocketId).emit("message-unsent", {
+                    messageId,
+                });
+            }
+
+        })
 
         // Listen for client disconnection
         socket.on("disconnect", () => {

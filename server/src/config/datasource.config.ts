@@ -26,7 +26,7 @@ const AppDataSource = new DataSource({
 
     // TypeORM options
     synchronize: true, //automatically creates
-    logging: true,
+    logging: true, // it will print all SQL queries in terminal
 
     // Register entities
     entities: [
@@ -43,10 +43,10 @@ const AppDataSource = new DataSource({
     ],
 
     // Migrations
-    migrations: [],
+    migrations: [], // track DB changes
 
     // Subscribers
-    subscribers: []
+    subscribers: [] // authomatically executes code
 });
 
 // export 

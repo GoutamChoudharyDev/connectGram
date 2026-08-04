@@ -19,12 +19,14 @@ const MessagesPage = () => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [onlineUsers, setOnlineUsers] = useState<number[]>([]);
     const [search, setSearch] = useState("");
+    const [selectedMessageId, setSelectedMessageId] = useState<number | null>(null);
 
     // get user
     const { user } = useAuth();
 
     // fetch Conversations + Online/Offline status
     useEffect(() => {
+        // fetch coversations
         const fetchConversations = async () => {
             try {
                 setLoading(true);
@@ -34,33 +36,44 @@ const MessagesPage = () => {
             } catch (error) {
                 console.error(error);
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
-        }
+        };
 
         fetchConversations();
 
-        // Online/Offline status
+        // handle message unsent
+        const handleMessageUnsent = ({ messageId }: { messageId: number }) => {
+            setMessages((prev) =>
+                prev.filter((message) => message.id !== messageId)
+            );
+        };
+
+        // handle user online
         const handleUserOnline = (userId: number) => {
             setOnlineUsers((prev) =>
                 prev.includes(userId) ? prev : [...prev, userId]
-            )
-        }
+            );
+        };
 
+        // handle user offline
         const handleUserOffline = (userId: number) => {
             setOnlineUsers((prev) =>
                 prev.filter((id) => id !== userId)
-            )
-        }
+            );
+        };
 
+        // socet events listen
+        socket.on("message-unsent", handleMessageUnsent);
         socket.on("user-online", handleUserOnline);
         socket.on("user-offline", handleUserOffline);
 
+        // socet events off
         return () => {
+            socket.off("message-unsent", handleMessageUnsent);
             socket.off("user-online", handleUserOnline);
             socket.off("user-offline", handleUserOffline);
-        }
-
+        };
     }, []);
 
     // fetch Messages + Listen for new messages
@@ -169,6 +182,8 @@ const MessagesPage = () => {
 
                             <MessageList
                                 messages={messages}
+                                selectedMessageId={selectedMessageId}
+                                onSelectMessageId={setSelectedMessageId}
                             />
 
                             <ChatInput

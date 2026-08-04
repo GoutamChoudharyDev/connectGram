@@ -297,162 +297,6 @@ export const getConversationById = asyncHandler(async (req: Request, res: Respon
     )
 })
 
-// // sendMessage controller
-// export const sendMessage = asyncHandler(async (req: Request, res: Response) => {
-//     // get authenticated user
-//     const user = req.user;
-
-//     // get conversation id from params
-//     const conversationId = Number(req.params.conversationId);
-
-//     // validate conversation id
-//     if (Number.isNaN(conversationId)) {
-//         return sendResponse(
-//             res,
-//             400,
-//             false,
-//             "Invalid conversation id"
-//         )
-//     }
-
-//     // get message content from req.body
-//     const { content } = req.body;
-
-//     // validate message content
-//     if (typeof content !== "string" || content.trim().length === 0) {
-//         return sendResponse(
-//             res,
-//             400,
-//             false,
-//             "Invalid message"
-//         )
-//     }
-
-//     // check conversation exists
-//     const existingConversation = await conversationRepository.findOne({
-//         where: { id: conversationId },
-//         relations: {
-//             participants: {
-//                 user: true,
-//             }
-//         },
-//         select: {
-//             id: true,
-//             createdAt: true,
-//             updatedAt: true,
-//             participants: {
-//                 id: true,
-//                 joinedAt: true,
-//                 user: {
-//                     id: true,
-//                     username: true,
-//                     fullName: true,
-//                     profilePicture: true,
-//                 }
-//             }
-//         },
-//     })
-
-//     // validate
-//     if (!existingConversation) {
-//         return sendResponse(
-//             res,
-//             404,
-//             false,
-//             "Conversation not found"
-//         )
-//     }
-
-//     // check authenticated user is a participant of this conversation
-//     const isParticipant = existingConversation.participants.some(
-//         (participant) => participant.user.id === user.id
-//     )
-
-//     if (!isParticipant) {
-//         return sendResponse(
-//             res,
-//             403,
-//             false,
-//             "You are not autherized to access this conversation"
-//         )
-//     }
-
-//     // create message
-//     const message = messageRepository.create({
-//         content: content.trim(),
-//         conversation: {
-//             id: conversationId
-//         },
-//         sender: {
-//             id: user.id
-//         }
-//     })
-
-//     // save message
-//     await messageRepository.save(message);
-
-//     // fetch saved message with sender details
-//     const savedMessage = await messageRepository.findOne({
-//         where: {
-//             id: message.id
-//         },
-//         relations: {
-//             sender: true
-//         },
-//         select: {
-//             id: true,
-//             content: true,
-//             isRead: true,
-//             createdAt: true,
-//             updatedAt: true,
-//             sender: {
-//                 id: true,
-//                 username: true,
-//                 fullName: true,
-//                 profilePicture: true
-//             }
-//         },
-//     });
-
-//     if (!savedMessage) {
-//         return sendResponse(
-//             res,
-//             500,
-//             false,
-//             "Failed to fetch saved message"
-//         );
-//     }
-
-//     existingConversation.updatedAt = new Date();
-//     await conversationRepository.save(existingConversation);
-
-//     // 1) find receiver
-//     const receiver = existingConversation.participants.find(
-//         (participant) => participant.user.id !== user.id
-//     )
-
-//     // 2) get receivers socket id
-//     const receiverSocketId = receiver ? getSocketId(receiver.user.id) : undefined;
-
-//     // get Socket.io instance
-//     const io = getIo();
-
-//     // 3) check whether receiver is online
-//     if (receiverSocketId) {
-//         io.to(receiverSocketId).emit("new-message", savedMessage);
-//     }
-
-//     // return response
-//     return sendResponse(
-//         res,
-//         201,
-//         true,
-//         "Message sent successfully",
-//         savedMessage
-//     )
-// })
-
-// getMessages controller
 export const getMessages = asyncHandler(async (req: Request, res: Response) => {
     // get authenticated user
     const user = req.user;
@@ -633,61 +477,61 @@ export const markMessageAsRead = asyncHandler(async (req: Request, res: Response
     );
 })
 
-// unsendMessage controller (delete from all)
-export const unsendMessage = asyncHandler(async (req: Request, res: Response) => {
-    // get authenticated user
-    const user = req.user;
+// // unsendMessage controller (delete from all)
+// export const unsendMessage = asyncHandler(async (req: Request, res: Response) => {
+//     // get authenticated user
+//     const user = req.user;
 
-    // get message id from params
-    const messageId = Number(req.params.messageId);
+//     // get message id from params
+//     const messageId = Number(req.params.messageId);
 
-    // validate message id
-    if (Number.isNaN(messageId)) {
-        return sendResponse(
-            res,
-            400,
-            false,
-            "Invalid message id"
-        )
-    }
+//     // validate message id
+//     if (Number.isNaN(messageId)) {
+//         return sendResponse(
+//             res,
+//             400,
+//             false,
+//             "Invalid message id"
+//         )
+//     }
 
-    // find message
-    // (load conversation, participants, sender)
-    const message = await messageRepository.findOne({
-        where: { id: messageId },
-        relations: {
-            sender: true,
-        }
-    })
+//     // find message
+//     // (load conversation, participants, sender)
+//     const message = await messageRepository.findOne({
+//         where: { id: messageId },
+//         relations: {
+//             sender: true,
+//         }
+//     })
 
-    // validate message exists
-    if (!message) {
-        return sendResponse(
-            res,
-            404,
-            false,
-            "Message not found"
-        )
-    }
+//     // validate message exists
+//     if (!message) {
+//         return sendResponse(
+//             res,
+//             404,
+//             false,
+//             "Message not found"
+//         )
+//     }
+        
+//     // check sender owns this message
+//     if (message.sender.id !== user.id) {
+//         return sendResponse(
+//             res,
+//             403,
+//             false,
+//             "You are not authorized to unsend this message"
+//         );
+//     }
 
-    // check sender owns this message
-    if (message.sender.id !== user.id) {
-        return sendResponse(
-            res,
-            403,
-            false,
-            "You are not authorized to unsend this message"
-        );
-    }
+//     // delete message
+//     await messageRepository.remove(message);
 
-    // delete message
-    await messageRepository.remove(message);
-
-    // return response
-    return sendResponse(
-        res,
-        200,
-        true,
-        "Message unsent successfully"
-    );
-})
+//     // return response
+//     return sendResponse(
+//         res,
+//         200,
+//         true,
+//         "Message unsent successfully"
+//     );
+// })

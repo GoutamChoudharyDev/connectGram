@@ -1,6 +1,6 @@
-import multer from "multer";
+import multer from "multer"; // it's a middleware that is used to handle file uploads
 
-const storage = multer.memoryStorage();
+const storage = multer.memoryStorage(); // store uploaded files temporary in RAM
 
 export const upload = multer({
     storage,

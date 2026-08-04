@@ -1,11 +1,11 @@
-import "reflect-metadata";
+import "reflect-metadata"; // allow to use decorators
 import "dotenv/config";
 
 import { createServer } from "http";
 
 import app from "./app.js";
 import { env } from "./config/env.config.js";
-import { AppDataSource } from "./config/datasource.config.js";
+import { AppDataSource } from "./config/datasource.config.js"; // help to connect DB (allowing to perform DB operations)
 import { initializeSocket } from "./modules/socket/socket.js";
 
 // 1) Create HTTP Server
@@ -15,7 +15,7 @@ const server = createServer(app);
 const startServer = async () => {
     try {
         // connect DB
-        await AppDataSource.initialize();
+        await AppDataSource.initialize(); // establishes db connection
 
         console.log("Database connected successfully");
 
@@ -28,7 +28,7 @@ const startServer = async () => {
         });
     } catch (error) {
         console.log("Failed to connect database", error);
-        process.exit(1);
+        process.exit(1); // stop application
     }
 }
 

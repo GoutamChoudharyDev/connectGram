@@ -3,7 +3,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import type { MessageListProps } from "../types/chat.types";
 import MessageBubble from "./MessageBubble";
 
-const MessageList = ({ messages }: MessageListProps) => {
+const MessageList = ({ messages, selectedMessageId, onSelectMessageId }: MessageListProps) => {
     // get logged in user
     const { user } = useAuth();
 
@@ -27,6 +27,8 @@ const MessageList = ({ messages }: MessageListProps) => {
                         key={message.id}
                         message={message}
                         currentUserId={user?.id}
+                        selectedMessageId={selectedMessageId}
+                        onSelectMessageId={onSelectMessageId}
                     />
                 ))}
             </div>
