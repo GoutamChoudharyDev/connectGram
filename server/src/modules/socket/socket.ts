@@ -1,6 +1,5 @@
 import { Server } from "socket.io";
 import { Server as HttpServer } from "http";
-import { sendResponse } from "../../utils/response.utils.js";
 import { conversationRepository, messageRepository } from "../../repositories/chat.repository.js";
 
 // Socket.IO instance (shared across the application)

@@ -2,7 +2,7 @@ import { BadgeCheck, Settings } from "lucide-react";
 import ProfileStats from "./ProfileStats";
 import ProfileBio from "./ProfileBio";
 import EditProfileButton from "./EditProfileButton";
-import type { Profile } from "../types/profile.types";
+import type { ProfileHeaderProps } from "../types/profile.types";
 import { useRef, useState, type ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { logoutApi } from "../../auth/services/auth.service";
@@ -12,9 +12,6 @@ import { useAuth } from "../../../hooks/useAuth";
 import { createConversationApi } from "../../chat/services/chat.service";
 import { socket } from "../../../socket/socket";
 
-interface ProfileHeaderProps {
-    profile: Profile;
-}
 
 const ProfileHeader = ({ profile }: ProfileHeaderProps) => {
     // useState

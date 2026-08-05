@@ -4,7 +4,6 @@ import { sendResponse } from "../../utils/response.utils.js";
 import { conversationParticipantRepository, conversationRepository, messageRepository } from "../../repositories/chat.repository.js";
 import { userRepository } from "../../repositories/user.repository.js";
 import { In } from "typeorm";
-import { getIo, getSocketId } from "../socket/socket.js";
 
 // createConversation controller
 export const createConversation = asyncHandler(async (req: Request, res: Response) => {
@@ -48,9 +47,10 @@ export const createConversation = asyncHandler(async (req: Request, res: Respons
         );
     }
 
+
     // check if conversation already exists between both users
     const existingConversation = await conversationRepository
-        .createQueryBuilder("conversation") // it tells i'm goint to build a custom sql query
+        .createQueryBuilder("conversation") // it tells i'm going to build a custom sql query
         .innerJoin(
             "conversation.participants",
             "senderParticipant"
@@ -476,62 +476,3 @@ export const markMessageAsRead = asyncHandler(async (req: Request, res: Response
         "Message marked as read successfully"
     );
 })
-
-// // unsendMessage controller (delete from all)
-// export const unsendMessage = asyncHandler(async (req: Request, res: Response) => {
-//     // get authenticated user
-//     const user = req.user;
-
-//     // get message id from params
-//     const messageId = Number(req.params.messageId);
-
-//     // validate message id
-//     if (Number.isNaN(messageId)) {
-//         return sendResponse(
-//             res,
-//             400,
-//             false,
-//             "Invalid message id"
-//         )
-//     }
-
-//     // find message
-//     // (load conversation, participants, sender)
-//     const message = await messageRepository.findOne({
-//         where: { id: messageId },
-//         relations: {
-//             sender: true,
-//         }
-//     })
-
-//     // validate message exists
-//     if (!message) {
-//         return sendResponse(
-//             res,
-//             404,
-//             false,
-//             "Message not found"
-//         )
-//     }
-        
-//     // check sender owns this message
-//     if (message.sender.id !== user.id) {
-//         return sendResponse(
-//             res,
-//             403,
-//             false,
-//             "You are not authorized to unsend this message"
-//         );
-//     }
-
-//     // delete message
-//     await messageRepository.remove(message);
-
-//     // return response
-//     return sendResponse(
-//         res,
-//         200,
-//         true,
-//         "Message unsent successfully"
-//     );
-// })

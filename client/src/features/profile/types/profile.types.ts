@@ -14,3 +14,7 @@ export interface Profile {
 export interface ProfilePostCardProp {
     post: Post;
 }
+
+export interface ProfileHeaderProps {
+    profile: Profile;
+}

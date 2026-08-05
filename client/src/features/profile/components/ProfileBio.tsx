@@ -7,6 +7,7 @@ interface ProfileBioProps {
 const ProfileBio = ({
     profile
 }: ProfileBioProps) => {
+
     return (
         <div>
             <h3 className="text-lg font-semibold text-white">
