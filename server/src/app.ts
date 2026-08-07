@@ -9,8 +9,10 @@ const app = express();
 
 // global middlewares
 app.use(cors({
-    origin: "http://localhost:5173", 
-    // origin: "*",
+    origin: [
+        "https://connect-gram-psi.vercel.app/",
+        "http://localhost:5173",
+    ],
     credentials: true,
 }));
 app.use(cookieParser());
