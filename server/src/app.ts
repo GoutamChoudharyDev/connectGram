@@ -10,7 +10,7 @@ const app = express();
 // global middlewares
 app.use(cors({
     origin: [
-        "https://connect-gram-psi.vercel.app/",
+        "https://connect-gram-olive.vercel.app/",
         "http://localhost:5173",
     ],
     credentials: true,
