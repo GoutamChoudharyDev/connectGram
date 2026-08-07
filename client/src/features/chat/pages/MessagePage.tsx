@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import MainLayout from "../../../components/layout/MainLayout";
 import ChatHeader from "../components/ChatHeader";
 import ChatInput from "../components/ChatInput";
 import ConversationList from "../components/ConversationList";
@@ -128,76 +127,74 @@ const MessagesPage = () => {
     });
 
     return (
-        <MainLayout fullWidth>
-            <div className="flex h-[calc(100dvh-8rem)] overflow-hidden bg-zinc-950 md:h-[calc(100dvh-7rem)] md:rounded-xl md:border md:border-zinc-800">
-                {/* Left Panel */}
-                <aside
-                    className={`
+        <div className="flex h-screen overflow-hidden bg-zinc-950 md:rounded-xl md:border md:border-zinc-800">
+            {/* Left Panel */}
+            <aside
+                className={`
                         ${selectedConversation
-                            ? "hidden md:flex"
-                            : "flex"
-                        }
+                        ? "hidden md:flex"
+                        : "flex"
+                    }
                     w-full flex-col border-r border-zinc-800
                     md:w-80 lg:w-96
                 `}
-                >
-                    <SearchMessages
-                        search={search}
-                        setSearch={setSearch}
-                    />
+            >
+                <SearchMessages
+                    search={search}
+                    setSearch={setSearch}
+                />
 
-                    <div className="min-h-0 flex-1 overflow-y-auto">
-                        {loading ? (
-                            <p className="p-4 text-center text-zinc-400">
-                                Loading...
-                            </p>
-                        ) : (
-                            <ConversationList
-                                conversations={filteredConversations}
-                                selectedConversation={selectedConversation}
-                                onSelect={setSelectedConversation}
-                                onlineUsers={onlineUsers}
-                            />
-                        )}
-                    </div>
-                </aside>
-
-                {/* Right Panel */}
-                <section
-                    className={`
-                    ${selectedConversation
-                            ? "flex"
-                            : "hidden md:flex"
-                        }
-                    min-h-0 flex-1 flex-col overflow-hidden
-                `}
-                >
-                    {selectedConversation ? (
-                        <>
-                            <ChatHeader
-                                conversation={selectedConversation}
-                                currentUserId={user?.id}
-                                onlineUsers={onlineUsers}
-                            />
-
-                            <MessageList
-                                messages={messages}
-                                selectedMessageId={selectedMessageId}
-                                onSelectMessageId={setSelectedMessageId}
-                            />
-
-                            <ChatInput
-                                conversationId={
-                                    selectedConversation.id
-                                }
-                            />
-                        </>
+                <div className="min-h-0 flex-1 overflow-y-auto">
+                    {loading ? (
+                        <p className="p-4 text-center text-zinc-400">
+                            Loading...
+                        </p>
                     ) : (
-                        <EmptyChat />
+                        <ConversationList
+                            conversations={filteredConversations}
+                            selectedConversation={selectedConversation}
+                            onSelect={setSelectedConversation}
+                            onlineUsers={onlineUsers}
+                        />
                     )}
-                </section>
-            </div>
-        </MainLayout>
+                </div>
+            </aside>
+
+            {/* Right Panel */}
+            <section
+                className={`
+                    ${selectedConversation
+                        ? "flex"
+                        : "hidden md:flex"
+                    }
+                    min-h-screen flex-1 flex-col overflow-hidden
+                `}
+            >
+                {selectedConversation ? (
+                    <>
+                        <ChatHeader
+                            conversation={selectedConversation}
+                            currentUserId={user?.id}
+                            onlineUsers={onlineUsers}
+                        />
+
+                        <MessageList
+                            messages={messages}
+                            selectedMessageId={selectedMessageId}
+                            onSelectMessageId={setSelectedMessageId}
+                        />
+
+                        <ChatInput
+                            conversationId={
+                                selectedConversation.id
+                            }
+                        />
+                    </>
+                ) : (
+                    <EmptyChat />
+                )}
+            </section>
+        </div>
     );
 };
 

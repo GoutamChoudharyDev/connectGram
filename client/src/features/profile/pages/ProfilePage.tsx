@@ -44,16 +44,20 @@ const ProfilePage = () => {
     }
 
     return (
-        <main className="min-h-screen bg-black text-white">
-            <div className="mx-auto max-w-6xl px-6 py-10">
+        <main className="w-full">
+            <div className="mx-auto w-full max-w-6xl px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
                 {/* Profile Header */}
                 <ProfileHeader profile={profile} />
 
                 {/* Tabs */}
-                <ProfileTabs />
+                <div className="mt-8">
+                    <ProfileTabs />
+                </div>
 
                 {/* Posts Grid */}
-                <ProfilePostGrid />
+                <div className="mt-6">
+                    <ProfilePostGrid />
+                </div>
             </div>
         </main>
     );

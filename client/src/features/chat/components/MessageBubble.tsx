@@ -10,14 +10,17 @@ const MessageBubble = ({ message, currentUserId, selectedMessageId, onSelectMess
     return (
         <div
             className={`
-                flex w-full px-2 py-1.5 sm:px-4 sm:py-2 
+                flex w-full px-2 py-1 sm:px-4 sm:py-2 
                 ${isOwnMessage ? "justify-end" : "justify-start"}
             `}
         >
             <div className="relative">
                 {/* Action Popup */}
                 {isOwnMessage && isSelected && (
-                    <div className="absolute -top-12 right-0 z-10 w-32 rounded-lg border border-zinc-700 bg-zinc-900 p-1 shadow-lg">
+                    <div
+                        className="absolute -top-12 right-0 z-10 w-32 max-w-[calc(100vw-1rem)] 
+                        border border-zinc-700 bg-zinc-900 p-1 shadow-lg rounded-lg"
+                    >
                         <button
                             className="w-full rounded-md px-3 py-2 text-left text-sm text-red-400 hover:bg-zinc-800"
                             onClick={(e) => {
@@ -45,18 +48,22 @@ const MessageBubble = ({ message, currentUserId, selectedMessageId, onSelectMess
                             prev === message.id ? null : message.id
                         );
                     }}
-                    className={`min-w-0 max-w-[85%] break-words rounded-2xl px-3 py-2 sm:max-w-lg sm:px-4 sm:py-3 
+
+                    className={`
+                        max-w-xl rounded-2xl px-3 py-2
+                        text-sm sm:px-4 sm:py-2.5 break-words whitespace-pre-wrap 
                         ${isOwnMessage
                             ? "rounded-br-md bg-blue-600"
                             : "rounded-bl-md bg-zinc-800"
-                        }`}
+                        }
+                    `}
                 >
-                    <p className="break-words whitespace-pre-wrap text-sm leading-5 text-white">
+                    <p className="whitespace-pre-wrap break-all text-xs leading-5 text-white sm:text-sm lg:text-base">
                         {message.content}
                     </p>
 
                     <p
-                        className={`mt-2 text-[10px] sm:text-xs ${isOwnMessage
+                        className={`mt-1 text-[9px] sm:mt-2 sm:text-[10px] lg:text-xs ${isOwnMessage
                             ? "text-right text-blue-100"
                             : "text-left text-zinc-400"
                             }`}
