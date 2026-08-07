@@ -24,6 +24,10 @@ const AppDataSource = new DataSource({
     password: env.DB_PASSWORD,
     database: env.DB_NAME,
 
+    ssl: {
+    rejectUnauthorized: false,
+    },
+
     // TypeORM options
     synchronize: true, //automatically creates
     logging: true, // it will print all SQL queries in terminal
