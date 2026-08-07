@@ -4,25 +4,25 @@ interface ProfileBioProps {
     profile: Profile;
 }
 
-const ProfileBio = ({
-    profile
-}: ProfileBioProps) => {
-
+const ProfileBio = ({ profile }: ProfileBioProps) => {
     return (
-        <div>
-            <h3 className="text-lg font-semibold text-white">
+        <div className="space-y-2">
+            <h3 className="break-words text-base font-semibold text-white sm:text-lg">
                 {profile.fullName}
             </h3>
 
-            <p className="mt-2 text-zinc-400">
-                {profile.bio}
-            </p>
+            {profile.bio && (
+                <p className="break-words whitespace-pre-line text-sm leading-6 text-zinc-400 sm:text-base">
+                    {profile.bio}
+                </p>
+            )}
 
             {profile.website && (
                 <a
                     href={profile.website}
                     target="_blank"
-                    className="mt-2 block text-blue-400"
+                    rel="noopener noreferrer"
+                    className="block break-all text-sm font-medium text-blue-400 transition hover:text-blue-300 sm:text-base"
                 >
                     {profile.website}
                 </a>

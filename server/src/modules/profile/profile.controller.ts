@@ -81,7 +81,7 @@ export const updateUserProfile = asyncHandler(async (req: Request, res: Response
             res,
             400,
             false,
-            "Provide atleast one field to update"
+            "Provide at least one field to update"
         )
     }
 
@@ -101,11 +101,11 @@ export const updateUserProfile = asyncHandler(async (req: Request, res: Response
             res,
             400,
             false,
-            "Bio can't exced 150 characters"
+            "Bio can't exceed 150 characters"
         )
     }
 
-    // update fileds 
+    // update fields 
     if (fullName !== undefined) {
         user.fullName = fullName.trim();
     }
@@ -150,7 +150,7 @@ export const updateProfilePicture = asyncHandler(async (req: Request, res: Respo
 
     // get uploaded file
     const file = req.file;
-    console.log("file: ", file); // comming
+    console.log("file: ", file); // coming
 
     // validation
     if (!file) {

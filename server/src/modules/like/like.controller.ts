@@ -105,7 +105,7 @@ export const unlikePost = asyncHandler(async (req: Request, res: Response) => {
         )
     }
 
-    // validate like existance
+    // validate like existence
     const existingLike = await likeRepository.findOne({
         where: {
             user: { id: user.id },
@@ -130,7 +130,7 @@ export const unlikePost = asyncHandler(async (req: Request, res: Response) => {
         res,
         200,
         true,
-        "Post unlike successfully"
+        "Post unliked successfully"
     )
 })
 

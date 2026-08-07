@@ -30,8 +30,8 @@ const ChatHeader = ({ conversation, currentUserId, onlineUsers }: ChatHeaderProp
 
                     <span
                         className={`absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-zinc-900 ${isOnline
-                                ? "bg-emerald-500"
-                                : "bg-zinc-500"
+                            ? "bg-emerald-500"
+                            : "bg-zinc-500"
                             }`}
                     />
                 </div>
@@ -43,8 +43,8 @@ const ChatHeader = ({ conversation, currentUserId, onlineUsers }: ChatHeaderProp
 
                     <p
                         className={`truncate text-[11px] ${isOnline
-                                ? "text-emerald-500"
-                                : "text-zinc-500"
+                            ? "text-emerald-500"
+                            : "text-zinc-500"
                             }`}
                     >
                         {isOnline ? "Online" : "Offline"}

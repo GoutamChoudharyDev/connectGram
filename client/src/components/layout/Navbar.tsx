@@ -18,13 +18,6 @@ const Navbar = () => {
                         ConnectGram
                     </h1>
                 </Link>
-
-                {/* Reserved for future actions */}
-                <div className="flex items-center gap-4">
-                    {/* Search */}
-                    {/* Notifications */}
-                    {/* User Menu */}
-                </div>
             </div>
         </header>
     );

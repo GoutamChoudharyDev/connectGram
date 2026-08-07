@@ -42,7 +42,7 @@ const MessagesPage = () => {
 
         fetchConversations();
 
-        // handle message unsent
+        // handle message unsent(Remove the unsent message from the chat)
         const handleMessageUnsent = ({ messageId }: { messageId: number }) => {
             setMessages((prev) =>
                 prev.filter((message) => message.id !== messageId)

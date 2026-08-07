@@ -25,14 +25,15 @@ const MainLayout = ({ children, fullWidth = false }: MainLayoutProps) => {
                 {/* Mobile Navbar */}
                 <MobileNavbar />
 
-                <div className="mx-auto flex max-w-7xl">
+                <div className="mx-auto flex w-full max-w-7xl">
                     {/* Main Content */}
                     <main
-                        className={`flex-1 px-3 pt-4 sm:px-4 sm:pt-6 lg:px-6 lg:pt-24 
-                            ${fullWidth ? "pb-0" : "pb-24 lg:pb-6"}`
+                        className={`
+                            flex-1 px-4 pt-4 sm:px-5 sm:pt-5 md:px-6 lg:px-8 lg:pt-24
+                            ${fullWidth ? "pb-0" : "pb-24 lg:pb-8"}`
                         }
                     >
-                        <div className={fullWidth ? "w-full" : "mx-auto max-w-2xl"}>
+                        <div className={fullWidth ? "w-full" : "mx-auto w-full max-w-2xl"}>
                             {children}
                         </div>
                     </main>

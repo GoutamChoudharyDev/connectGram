@@ -34,7 +34,7 @@ export const registerUser = asyncHandler(async (req: Request, res: Response) => 
             res,
             400,
             false,
-            "Password must be atleast 6 character"
+            "Password must be at least 6 character"
         )
     }
 
@@ -271,7 +271,7 @@ export const reSendOTP = asyncHandler(async (req: Request, res: Response) => {
         res,
         201,
         true,
-        "OTP is sended successfully"
+        "OTP is sent successfully"
     )
 })
 
@@ -322,7 +322,7 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
             res,
             401,
             false,
-            "Invalid creadentials"
+            "Invalid credentials"
         )
     }
 
@@ -369,7 +369,7 @@ export const refreshAccessToken = asyncHandler(async (req: Request, res: Respons
             res,
             401,
             false,
-            "Unatherized access"
+            "Unauthorized access"
         )
     }
 
@@ -386,7 +386,7 @@ export const refreshAccessToken = asyncHandler(async (req: Request, res: Respons
             res,
             401,
             false,
-            "Unautherized"
+            "Unauthorized"
         )
     }
 

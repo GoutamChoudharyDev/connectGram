@@ -433,7 +433,7 @@ export const replyComment = asyncHandler(async (req: Request, res: Response) => 
         res,
         201,
         true,
-        "Reply add successfully",
+        "Reply added successfully",
         savedReply
     )
 })

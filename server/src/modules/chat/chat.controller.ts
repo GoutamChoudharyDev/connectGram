@@ -283,7 +283,7 @@ export const getConversationById = asyncHandler(async (req: Request, res: Respon
             res,
             403,
             false,
-            "You are not autherized to access this conversation"
+            "You are not authorized to access this conversation"
         )
     }
 
@@ -345,7 +345,7 @@ export const getMessages = asyncHandler(async (req: Request, res: Response) => {
             res,
             403,
             false,
-            "You are not autherized to access this conversation"
+            "You are not authorized to access this conversation"
         )
     }
 

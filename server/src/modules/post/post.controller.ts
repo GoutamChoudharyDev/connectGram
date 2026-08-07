@@ -7,7 +7,7 @@ import { MediaType, PostMedia } from "../../entities/postMedia.entity.js";
 
 // create post controller
 export const createPost = asyncHandler(async (req: Request, res: Response) => {
-    // get looged in user
+    // get logged in user
     const user = req.user;
 
     // get data from frontend(req.body)
@@ -22,7 +22,7 @@ export const createPost = asyncHandler(async (req: Request, res: Response) => {
             res,
             404,
             false,
-            "Atleast one file is required"
+            "At least one file is required"
         )
     }
 
@@ -59,7 +59,7 @@ export const createPost = asyncHandler(async (req: Request, res: Response) => {
         mediaList.push(media);
     }
 
-    // save all medai 
+    // save all media 
     await postMediaRepository.save(mediaList);
 
     // response
@@ -257,7 +257,7 @@ export const getAllPosts = asyncHandler(async (req: Request, res: Response) => {
         "All posts fetched successfully",
         {
             posts,
-            pagintion: {
+            pagination: {
                 page,
                 limit,
                 totalPosts,
@@ -293,7 +293,7 @@ export const updatePost = asyncHandler(async (req: Request, res: Response) => {
             res,
             400,
             false,
-            "Atleast one field required"
+            "At least one field required"
         )
     }
 
@@ -321,7 +321,7 @@ export const updatePost = asyncHandler(async (req: Request, res: Response) => {
             res,
             403,
             false,
-            "You are not autherized to updated this post"
+            "You are not authorized to updated this post"
         )
     }
 
@@ -396,7 +396,7 @@ export const deletePost = asyncHandler(async (req: Request, res: Response) => {
             res,
             403,
             false,
-            "You are not autherized to delete this post"
+            "You are not authorized to delete this post"
         )
     }
 

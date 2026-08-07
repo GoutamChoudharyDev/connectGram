@@ -59,7 +59,7 @@ export const followUser = asyncHandler(async (req: Request, res: Response) => {
             res,
             400,
             false,
-            "You already following this user"
+            "You are already following this user"
         )
     }
 
