@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 const EditPostPage = () => {
     // get post id from params
     const { postId } = useParams();
+    const [loading, setLoading] = useState(false);
 
     // useState
     const [formData, setFormData] = useState({
@@ -22,6 +23,8 @@ const EditPostPage = () => {
     // find post
     useEffect(() => {
         const fetchPost = async () => {
+            setLoading(true);
+
             if (!postId) return;
             try {
                 const response = await getPostApi(Number(postId));
@@ -32,6 +35,8 @@ const EditPostPage = () => {
                 })
             } catch (error) {
                 console.error(error)
+            } finally {
+                setLoading(false);
             }
         }
 
@@ -82,6 +87,7 @@ const EditPostPage = () => {
                         <PublishButton
                             text="Update Post"
                             onClick={handleUpdatePost}
+                            loading={loading}
                         />
                     </div>
                 </div>

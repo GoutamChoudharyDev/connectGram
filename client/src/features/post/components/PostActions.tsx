@@ -5,6 +5,7 @@ import LikeButton from "../../like/components/LikeButton";
 import CommentButton from "../../comment/components/CommentButton";
 
 const PostActions = ({ isOwner, userId, postId, onCommentClick }: PostActionsProps) => {
+
     return (
         <div>
             {/* Action Buttons */}
@@ -32,7 +33,9 @@ const PostActions = ({ isOwner, userId, postId, onCommentClick }: PostActionsPro
 
                     {/* Follow */}
                     {!isOwner && (
-                        <FollowButton userId={userId} />
+                        <FollowButton
+                            userId={userId}
+                        />
                     )}
                 </div>
             </div>
