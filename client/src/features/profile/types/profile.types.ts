@@ -17,4 +17,14 @@ export interface ProfilePostCardProp {
 
 export interface ProfileHeaderProps {
     profile: Profile;
+    followersCount: number;
+    followingCount: number;
+    postCount: number;
+    onFollowChange: () => void;
+}
+
+export interface ProfileStatsProps {
+    followersCount: number;
+    followingCount: number;
+    postCount: number;
 }

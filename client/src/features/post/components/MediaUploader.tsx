@@ -13,8 +13,6 @@ const MediaUploader = ({ files, setFiles }: MediaUploaderProps) => {
     // handleFileChange
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const selectedFiles = e.target.files;
-        console.log("files : ", files);
-        console.log("selectedfiles : ", selectedFiles);
 
         if (!selectedFiles) return;
 
@@ -55,7 +53,7 @@ const MediaUploader = ({ files, setFiles }: MediaUploaderProps) => {
             />
 
             <p className="mt-4 text-xs text-zinc-500">
-                Maximum file size: 10 MB per file
+                Selected file: {files.length === 0 ? "No file selected" : files[0]?.name}
             </p>
         </div>
     );

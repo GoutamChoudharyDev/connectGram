@@ -38,6 +38,7 @@ export interface PostCardProps {
 export interface PublishButtonProps {
     onClick: () => void;
     text?: string;
+    loading: boolean;
 }
 
 export interface PostActionsProps {

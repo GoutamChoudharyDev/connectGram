@@ -14,7 +14,7 @@ import { socket } from "../../../socket/socket";
 import FollowButton from "../../follow/components/FollowButton";
 
 
-const ProfileHeader = ({ profile }: ProfileHeaderProps) => {
+const ProfileHeader = ({ profile, followersCount, followingCount, postCount, onFollowChange }: ProfileHeaderProps) => {
     // useState
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -143,7 +143,10 @@ const ProfileHeader = ({ profile }: ProfileHeaderProps) => {
                             </div>
                         ) : (
                             <>
-                                <FollowButton userId={profile.id} />
+                                <FollowButton
+                                    userId={profile.id}
+                                    onFollowChange={onFollowChange}
+                                />
 
                                 <button
                                     onClick={handleMessageButton}
@@ -156,7 +159,11 @@ const ProfileHeader = ({ profile }: ProfileHeaderProps) => {
 
                     {/* Stats */}
                     <div className="mt-7">
-                        <ProfileStats />
+                        <ProfileStats
+                            followersCount={followersCount}
+                            followingCount={followingCount}
+                            postCount={postCount}
+                        />
                     </div>
 
                     {/* Bio */}

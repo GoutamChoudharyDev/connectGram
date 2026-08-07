@@ -1,58 +1,6 @@
-import { useEffect, useState } from "react";
-import { getFollowersApi, getFollowingsApi } from "../../follow/services/follow.services";
-import { useParams } from "react-router-dom";
-import { getMyPostsApi } from "../../post/services/post.service";
+import type { ProfileStatsProps } from "../types/profile.types";
 
-const ProfileStats = () => {
-    // use state
-    const [followersCount, setFollowersCount] = useState(0);
-    const [followingCount, setFollowingCount] = useState(0);
-    const [postCount, setPostCount] = useState(0);
-
-    // username
-    const { username } = useParams();
-
-    // useEffect
-    useEffect(() => {
-        if (!username) return;
-
-        // get followers
-        const getFollowers = async () => {
-            try {
-                const followResponse = await getFollowersApi(username);
-                setFollowersCount(followResponse.data.length)
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-        getFollowers();
-
-        // get followings
-        const getFollowings = async () => {
-            try {
-                const followingResponse = await getFollowingsApi(username);
-                setFollowingCount(followingResponse.data.length)
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-        getFollowings();
-
-        // get posts
-        const getPosts = async () => {
-            try {
-                const postResponse = await getMyPostsApi(username);
-                setPostCount(postResponse.data.length);
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-        getPosts();
-    }, [username])
-
+const ProfileStats = ({ followersCount, followingCount, postCount }: ProfileStatsProps) => {
     return (
         <div className="flex items-center gap-8">
             {/* Posts */}

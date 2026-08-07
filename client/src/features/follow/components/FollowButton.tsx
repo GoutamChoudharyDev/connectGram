@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { FollowButtonProps } from "../types/follow.types";
 import { followUserApi, getFollowStatusApi, unfollowUserApi } from "../services/follow.services";
 
-const FollowButton = ({ userId }: FollowButtonProps) => {
+const FollowButton = ({ userId, onFollowChange }: FollowButtonProps) => {
     // useStates
     const [isFollowing, setIsFollowing] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -21,9 +21,8 @@ const FollowButton = ({ userId }: FollowButtonProps) => {
                 setLoading(false);
             }
         }
-
         fetchFollowStatus();
-    }, [userId])
+    }, [userId, isFollowing])
 
     // handle follow
     const handleFollow = async () => {
@@ -32,9 +31,11 @@ const FollowButton = ({ userId }: FollowButtonProps) => {
 
             if (isFollowing) {
                 await unfollowUserApi(userId);
+                onFollowChange?.();
                 setIsFollowing(false);
             } else {
                 await followUserApi(userId);
+                onFollowChange?.();
                 setIsFollowing(true);
             }
         } catch (error) {

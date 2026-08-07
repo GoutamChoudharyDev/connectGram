@@ -14,6 +14,7 @@ const CreatePostPage = () => {
         location: ""
     });
     const [files, setFiles] = useState<File[]>([]);
+    const [loading, setLoading] = useState(false);
 
     // navigate
     const navigate = useNavigate();
@@ -27,6 +28,8 @@ const CreatePostPage = () => {
         }
 
         try {
+            setLoading(true);
+
             const data = new FormData();
 
             // Append all media files
@@ -54,6 +57,8 @@ const CreatePostPage = () => {
             navigate("/");
         } catch (error) {
             console.error(error);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -86,7 +91,7 @@ const CreatePostPage = () => {
                             formData={formData}
                             setFormData={setFormData}
                         />
-                        <PublishButton onClick={handleCreatePost} />
+                        <PublishButton onClick={handleCreatePost} loading={loading} />
                     </div>
                 </div>
             </div>
