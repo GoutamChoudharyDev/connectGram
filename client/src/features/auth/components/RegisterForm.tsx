@@ -55,11 +55,7 @@ const RegisterForm = () => {
             // api call
             const response = await registerApi(formData);
 
-            console.log("REGISTER RESPONSE:", response);
-
             toast.success(response.message)
-
-            console.log("BEFORE NAVIGATION");
 
             // navigate
             navigate("/verify-otp", {
@@ -67,8 +63,6 @@ const RegisterForm = () => {
                     email: formData.email
                 }
             })
-
-            console.log("AFTER NAVIGATION");
         } catch (error) {
             console.error("REGISTER ERROR", error);
             toast.error("Registration failed");

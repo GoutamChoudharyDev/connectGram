@@ -100,11 +100,11 @@ export const registerUser = asyncHandler(async (req: Request, res: Response) => 
     await emailVerificationRepository.save(verification);
 
     // // send email
-    // await sendEmail(
-    //     savedUser.email,
-    //     "Verify your ConnectGram account",
-    //     verificationEmailTemplate(savedUser.fullName, otp)
-    // )
+    await sendEmail(
+        savedUser.email,
+        "Verify your ConnectGram account",
+        verificationEmailTemplate(savedUser.fullName, otp)
+    )
 
     // Send response
     return sendResponse(
