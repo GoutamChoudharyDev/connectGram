@@ -22,7 +22,7 @@ const AppRoutes = () => {
                 path="/verify-otp"
                 element={
                     <div className="min-h-screen bg-black p-10 text-3xl text-white">
-                        VERIFY OTP ROUTE WORKS
+                        VERIFY OTP ROUTE WORK
                     </div>
                 }
             />
