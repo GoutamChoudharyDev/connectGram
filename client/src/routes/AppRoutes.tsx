@@ -15,7 +15,15 @@ const AppRoutes = () => {
             {/* Public Routes */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/verify-otp" element={<VerifyEmailPage />} />
+            {/* <Route path="/verify-otp" element={<VerifyEmailPage />} /> */}
+            <Route
+                path="/verify-otp"
+                element={
+                    <div className="min-h-screen bg-black p-10 text-3xl text-white">
+                        VERIFY OTP ROUTE WORKS
+                    </div>
+                }
+            />
 
             {/* Protected Routes */}
             <Route element={<ProtectedRoute />}>
