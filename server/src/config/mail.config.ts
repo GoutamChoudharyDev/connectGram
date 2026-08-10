@@ -15,6 +15,6 @@ transporter.verify((error, success) => {
     if (error) {
         console.error("SMTP connection failed:", error);
     } else {
-        console.log("SMTP server is ready:", success);
+        console.log("SMTP server is readyy:", success);
     }
 });
