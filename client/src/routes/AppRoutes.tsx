@@ -10,6 +10,8 @@ import MessagesPage from "../features/chat/pages/MessagePage"
 import ProtectedRoute from "./ProtectedRoute"
 
 const AppRoutes = () => {
+    console.log("working");
+    
     return (
         <Routes>
             {/* Public Routes */}
