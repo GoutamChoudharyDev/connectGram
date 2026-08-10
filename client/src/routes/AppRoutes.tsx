@@ -1,7 +1,7 @@
 import LoginPage from "../features/auth/pages/LoginPage"
 import RegisterPage from "../features/auth/pages/RegisterPage"
 import { Routes, Route } from "react-router-dom"
-import VerifyEmailPage from "../features/auth/pages/VerifyEmailPage"
+// import VerifyEmailPage from "../features/auth/pages/VerifyEmailPage"
 import ProfilePage from "../features/profile/pages/ProfilePage"
 import HomePage from "../features/post/pages/HomePage"
 import CreatePostPage from "../features/post/pages/CreatePostPage"
