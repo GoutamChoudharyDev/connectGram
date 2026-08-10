@@ -3,6 +3,8 @@ import VerifyEmailForm from "../components/VerifyEmailForm";
 import AuthLayout from "../layout/AuthLayout";
 
 const VerifyEmailPage = () => {
+  console.log("VERIFY EMAIL PAGE MOUNTED");
+  
   return (
     <AuthLayout>
       <div className="mx-auto grid min-h-[calc(100vh-120px)] max-w-7xl grid-cols-1 lg:grid-cols-12">
