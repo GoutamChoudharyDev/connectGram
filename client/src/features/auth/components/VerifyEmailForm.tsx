@@ -36,15 +36,11 @@ const VerifyEmailForm = () => {
     console.log("VERIFY EMAIL:", email);
 
     // Redirect if email doesn't exist
-    // useEffect(() => {
-    //     if (!email) {
-    //         navigate("/register");
-    //     }
-    // }, [email, navigate]);
-
     useEffect(() => {
-        console.log("VERIFY EMAIL:", email);
-    }, [email]);
+        if (!email) {
+            navigate("/register");
+        }
+    }, [email, navigate]);
 
     // OTP input refs
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
