@@ -24,9 +24,14 @@ const AppDataSource = new DataSource({
     password: env.DB_PASSWORD,
     database: env.DB_NAME,
 
-    ssl: {
-    rejectUnauthorized: false,
-    },
+    // for secure DB Connection
+    // ssl: {
+    //     rejectUnauthorized: false,
+    // },
+
+    ssl: env.DB_SSL === "true"
+        ? { rejectUnauthorized: false }
+        : false,
 
     // TypeORM options
     synchronize: true, //automatically creates

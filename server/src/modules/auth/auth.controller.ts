@@ -85,7 +85,6 @@ export const registerUser = asyncHandler(async (req: Request, res: Response) => 
 
     // generate otp
     const otp = generateOTP();
-    console.log("otp : ", otp);
 
     // expiry of an otp
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 min
@@ -99,7 +98,7 @@ export const registerUser = asyncHandler(async (req: Request, res: Response) => 
 
     await emailVerificationRepository.save(verification);
 
-    // // send email
+    // send email
     await sendEmail(
         savedUser.email,
         "Verify your ConnectGram account",

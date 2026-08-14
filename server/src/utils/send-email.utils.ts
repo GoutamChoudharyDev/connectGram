@@ -7,10 +7,16 @@ export const sendEmail = async (
     subject: string,
     html: string
 ): Promise<void> => {
-    await transporter.sendMail({
-        from: `"ConnectGram"<${env.MAIL_USER}>`,
-        to,
-        subject,
-        html
-    })
+    try {
+        const info = await transporter.sendMail({
+            from: `"ConnectGram"<${env.MAIL_USER}>`,
+            to,
+            subject,
+            html
+        })
+
+        console.log("Email sent:", info.messageId);
+    } catch (error) {
+        console.error("Email sending failed:", error);
+    }
 }

@@ -150,7 +150,6 @@ export const updateProfilePicture = asyncHandler(async (req: Request, res: Respo
 
     // get uploaded file
     const file = req.file;
-    console.log("file: ", file); // coming
 
     // validation
     if (!file) {
@@ -192,7 +191,6 @@ export const updateProfilePicture = asyncHandler(async (req: Request, res: Respo
 export const deleteProfilePicture = asyncHandler(async (req: Request, res: Response) => {
     // get logged in user
     const user = req.user;
-    console.log("user", user);
 
     // check profile picture exists
     if (!user.profilePicture || !user.profilePicturePublicId) {

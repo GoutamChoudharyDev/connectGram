@@ -12,6 +12,7 @@ export const env = {
     DB_USERNAME: process.env.DB_USERNAME as string,
     DB_PASSWORD: process.env.DB_PASSWORD as string,
     DB_NAME: process.env.DB_NAME as string,
+    DB_SSL: process.env.DB_SSL as string,
 
     // email configuration
     MAIL_HOST: process.env.MAIL_HOST as string,

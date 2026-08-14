@@ -1,0 +1,38 @@
+# services means container
+services:
+  # postgres service
+  postgres:
+    image: postgres:18
+    container_name: connectgram-postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: connectgram
+    ports:
+      - "5433:5432"
+    volumes:
+      - connectgram-postgres-data:/var/lib/postgresql
+
+  # backend service
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: connectgram-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env.docker
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://localhost:8000
+    container_name: connectgram-frontend
+    ports:
+      - "5173:5173"
+
+volumes:
+  connectgram-postgres-data:

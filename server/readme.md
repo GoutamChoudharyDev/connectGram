@@ -200,3 +200,26 @@
 - Video/Voice Calls
 - Watch History
 - Admin Panel
+
+
+
+
+<!-- docker steps -->
+<!-- Backend -->
+## 1) create .dockerignore
+## 2) create Dockerfile
+## 3) create docker image(docker build)
+## 4) create docker container(docker run) failed due to env(.dockerignore)
+## 5) create docker-compose.yml
+## 6) docker compose config
+## 7) docker compose up -d
+## 8) add backend service(docker-compose.yml)
+## 9) now we add enviornment variables in backend service
+## 10) 
+## 11) 
+## 12) 
+## 13) 
+## 14) 
+## 15) 
+## 16) 
+## 17) 

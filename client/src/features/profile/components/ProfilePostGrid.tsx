@@ -20,7 +20,6 @@ const ProfilePostGrid = () => {
             try {
                 const myPostResponse = await getMyPostsApi(username);
                 setMyPosts(myPostResponse.data);
-                console.log("myposts : ", myPostResponse.data);
             } catch (error) {
                 console.error(error);
             }

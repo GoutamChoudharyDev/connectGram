@@ -3,7 +3,6 @@ import VerifyEmailForm from "../components/VerifyEmailForm";
 import AuthLayout from "../layout/AuthLayout";
 
 const VerifyEmailPage = () => {
-  console.log("VERIFY EMAIL PAGE MOUNTED");
   
   return (
     <AuthLayout>

@@ -27,13 +27,7 @@ const VerifyEmailForm = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // Temporary debugging
-    console.log("VERIFY LOCATION:", location);
-    console.log("VERIFY STATE:", location.state);
-
     const { email } = (location.state as LocationState) || {};
-
-    console.log("VERIFY EMAIL:", email);
 
     // Redirect if email doesn't exist
     useEffect(() => {

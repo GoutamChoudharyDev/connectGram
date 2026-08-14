@@ -1,8 +1,5 @@
 import "reflect-metadata"; // allow to use decorators
 import "dotenv/config";
-import dns from "node:dns";
-
-dns.setDefaultResultOrder("ipv4first");
 
 import { createServer } from "http";
 

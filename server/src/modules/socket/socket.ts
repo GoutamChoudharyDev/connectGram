@@ -237,7 +237,6 @@ export const initializeSocket = (server: HttpServer) => {
                     messageId,
                 });
             }
-
         })
 
         // Listen for client disconnection
